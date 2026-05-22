@@ -24,6 +24,7 @@ export interface Skill {
   icon: string;
   category: SkillCategory;
   proficiency: number;
+  years: number;
 }
 
 export type SkillCategory =

@@ -1,4 +1,4 @@
-import { Mail } from "lucide-react";
+import { Mail, FileText } from "lucide-react";
 
 const GithubIcon = ({ size }: { size: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" role="img">
@@ -12,30 +12,31 @@ const LinkedinIcon = ({ size }: { size: number }) => (
   </svg>
 );
 
-const TwitterIcon = ({ size }: { size: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" role="img">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
-
 const socialLinks = [
   { icon: GithubIcon, href: "https://github.com/daganoo", label: "GitHub" },
   { icon: LinkedinIcon, href: "https://linkedin.com/in/daganoo", label: "LinkedIn" },
-  { icon: TwitterIcon, href: "https://twitter.com/daganoo", label: "Twitter" },
-  { icon: Mail, href: "mailto:hello@daganoo.dev", label: "Email" },
+  { icon: Mail, href: "mailto:marwan.dagana@gmail.com", label: "Email" },
 ];
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-gray-200 bg-white transition-colors duration-300 dark:border-white/10 dark:bg-gray-950">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-12 sm:flex-row sm:justify-between sm:px-6 lg:px-8">
-        <p className="text-sm text-gray-400 dark:text-gray-500">
+    <footer className="border-t border-border bg-background">
+      <div className="container-page mx-auto flex flex-col items-center gap-6 py-8 sm:flex-row sm:justify-between">
+        <p className="text-sm text-muted-foreground">
           &copy; {currentYear} Marouane Dagana. All rights reserved.
         </p>
-
         <div className="flex items-center gap-4">
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+          >
+            <FileText size={14} />
+            Resume
+          </a>
           {socialLinks.map(({ icon: Icon, href, label }) => (
             <a
               key={label}
@@ -43,7 +44,7 @@ export const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              className="rounded-lg p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:text-gray-500 dark:hover:bg-white/5 dark:hover:text-white"
+              className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
             >
               <Icon size={20} />
             </a>

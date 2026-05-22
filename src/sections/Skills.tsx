@@ -12,42 +12,41 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 const categoryText: Record<SkillCategory, string> = {
-  "Cloud & Infrastructure": "text-blue-600 dark:text-blue-400",
-  Frontend: "text-violet-600 dark:text-violet-400",
-  Backend: "text-emerald-600 dark:text-emerald-400",
-  "AI & Machine Learning": "text-amber-600 dark:text-amber-400",
-  Automation: "text-rose-600 dark:text-rose-400",
+  "Cloud & Infrastructure": "text-blue-500",
+  Frontend: "text-purple-500",
+  Backend: "text-green-500",
+  "AI & Machine Learning": "text-orange-500",
+  Automation: "text-orange-500",
 };
 
 const barColors: Record<SkillCategory, string> = {
   "Cloud & Infrastructure": "bg-gradient-to-r from-blue-500 to-cyan-500",
-  Frontend: "bg-gradient-to-r from-violet-500 to-purple-500",
-  Backend: "bg-gradient-to-r from-emerald-500 to-green-500",
-  "AI & Machine Learning": "bg-gradient-to-r from-amber-500 to-orange-500",
-  Automation: "bg-gradient-to-r from-rose-500 to-pink-500",
+  Frontend: "bg-gradient-to-r from-purple-500 to-violet-500",
+  Backend: "bg-gradient-to-r from-green-500 to-emerald-500",
+  "AI & Machine Learning": "bg-gradient-to-r from-orange-500 to-amber-500",
+  Automation: "bg-gradient-to-r from-orange-500 to-rose-500",
 };
 
 export const Skills = () => {
   return (
-    <section id="skills" className="section-container">
+    <section className="container-page mx-auto py-24">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="section-title">
-          Tech <span className="text-gradient">Stack</span>
+        <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
+          Tech Stack
         </h2>
-        <p className="section-subtitle">
+        <p className="mt-6 max-w-3xl text-lg text-muted-foreground">
           Technologies and tools I work with to build cloud-native applications, AI solutions, and automated systems.
         </p>
       </motion.div>
 
-      <div className="grid gap-8 md:grid-cols-2">
+      <div className="mt-12 grid gap-8 md:grid-cols-2">
         {skillCategories.map((category, catIndex) => {
           const categorySkills = skills.filter((s) => s.category === category);
-
           return (
             <motion.div
               key={category}
@@ -55,16 +54,14 @@ export const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: catIndex * 0.1, duration: 0.5 }}
-              className="glass-card p-6"
+              className="rounded-xl border border-border bg-card p-6 shadow-sm"
             >
               <h3 className={`mb-6 text-lg font-semibold ${categoryText[category]}`}>
                 {category}
               </h3>
-
               <div className="space-y-4">
                 {categorySkills.map((skill, i) => {
                   const Icon = iconMap[skill.icon] || Code2;
-
                   return (
                     <motion.div
                       key={skill.name}
@@ -76,15 +73,13 @@ export const Skills = () => {
                       <div className="mb-2 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Icon size={16} className={categoryText[category]} />
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {skill.name}
-                          </span>
+                          <span className="text-sm font-medium">{skill.name}</span>
                         </div>
-                        <span className="text-xs text-gray-400 dark:text-gray-500">
-                          {skill.proficiency}%
+                        <span className="text-xs text-muted-foreground">
+                          {skill.years}+ yrs
                         </span>
                       </div>
-                      <div className="h-1.5 overflow-hidden rounded-full bg-gray-200 dark:bg-white/5">
+                      <div className="h-1.5 overflow-hidden rounded-full bg-muted">
                         <motion.div
                           className={`h-full rounded-full ${barColors[category]}`}
                           initial={{ width: 0 }}

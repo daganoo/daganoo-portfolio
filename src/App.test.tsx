@@ -3,9 +3,9 @@ import { MemoryRouter } from "react-router-dom";
 import { ThemeProvider } from "./hooks/useTheme";
 import App from "./App";
 
-test("renders hero section with name", () => {
+test("renders hero section with name on home page", () => {
   render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={["/"]}>
       <ThemeProvider>
         <App />
       </ThemeProvider>
@@ -17,7 +17,7 @@ test("renders hero section with name", () => {
 
 test("renders navigation links", () => {
   render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={["/"]}>
       <ThemeProvider>
         <App />
       </ThemeProvider>
@@ -25,8 +25,8 @@ test("renders navigation links", () => {
   );
   const aboutLinks = screen.getAllByText("About");
   const projectsLinks = screen.getAllByText("Projects");
-  const skillsLinks = screen.getAllByText("Skills");
+  const contactLinks = screen.getAllByText("Contact");
   expect(aboutLinks.length).toBeGreaterThanOrEqual(1);
   expect(projectsLinks.length).toBeGreaterThanOrEqual(1);
-  expect(skillsLinks.length).toBeGreaterThanOrEqual(1);
+  expect(contactLinks.length).toBeGreaterThanOrEqual(1);
 });

@@ -13,23 +13,23 @@ const timelineItemVariants = {
 
 export const Experience = () => {
   return (
-    <section id="experience" className="section-container">
+    <section className="container-page mx-auto py-24">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="section-title">
-          Experience &amp; <span className="text-gradient">Education</span>
+        <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
+          Experience &amp; Education
         </h2>
-        <p className="section-subtitle">
-          My journey through software engineering education and hands-on freelance work.
+        <p className="mt-6 max-w-3xl text-lg text-muted-foreground">
+          My journey through cloud engineering, AI development, and software engineering.
         </p>
       </motion.div>
 
-      <div className="relative">
-        <div className="absolute left-6 top-0 h-full w-px bg-gray-200 dark:bg-white/10 md:left-8" />
+      <div className="relative mt-12">
+        <div className="absolute left-6 top-0 h-full w-px bg-border md:left-8" />
 
         <div className="space-y-12">
           {experiences.map((exp, i) => (
@@ -43,54 +43,51 @@ export const Experience = () => {
               viewport={{ once: true }}
             >
               <div
-                className={`absolute left-[18px] top-1 rounded-full border-2 border-gray-200 p-2 dark:border-white/10 md:left-[26px] ${
+                className={`absolute left-[18px] top-1 rounded-full border-2 border-border bg-background p-2 md:left-[26px] ${
                   exp.type === "education"
-                    ? "bg-brand-50 dark:bg-brand-500/10"
-                    : "bg-emerald-50 dark:bg-emerald-500/10"
+                    ? "text-blue-500"
+                    : "text-green-500"
                 }`}
               >
                 {exp.type === "education" ? (
-                  <GraduationCap size={16} className="text-brand-600 dark:text-brand-400" />
+                  <GraduationCap size={16} />
                 ) : (
-                  <Briefcase size={16} className="text-emerald-600 dark:text-emerald-400" />
+                  <Briefcase size={16} />
                 )}
               </div>
 
-              <div className="glass-card p-6">
+              <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
                 <div className="mb-1 flex items-center gap-3">
                   <span
-                    className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                    className={`rounded-md border px-2.5 py-0.5 text-xs font-semibold ${
                       exp.type === "education"
-                        ? "bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400"
-                        : "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"
+                        ? "border-blue-500/30 bg-blue-500/10 text-blue-500"
+                        : "border-green-500/30 bg-green-500/10 text-green-500"
                     }`}
                   >
                     {exp.type === "education" ? "Education" : "Work"}
                   </span>
-                  <span className="text-sm text-gray-400 dark:text-gray-500">
+                  <span className="text-sm text-muted-foreground">
                     {exp.startDate} — {exp.endDate || "Present"}
                   </span>
                 </div>
 
-                <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="mb-1 text-lg font-semibold text-card-foreground">
                   {exp.title}
                 </h3>
-
-                <p className="mb-3 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mb-3 text-sm text-muted-foreground">
                   {exp.organization} &middot; {exp.location}
                 </p>
-
-                <p className="mb-4 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
+                <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
                   {exp.description}
                 </p>
-
                 <ul className="space-y-2">
                   {exp.highlights.map((highlight) => (
                     <li
                       key={highlight}
-                      className="flex items-start gap-2 text-sm text-gray-500 dark:text-gray-400"
+                      className="flex items-start gap-2 text-sm text-muted-foreground"
                     >
-                      <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-500" />
+                      <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary/70" />
                       {highlight}
                     </li>
                   ))}
