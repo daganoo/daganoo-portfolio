@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowDown, ExternalLink, ArrowRight, Code2, Cloud, Sparkles, Zap, Mail, MapPin, FileText } from "lucide-react";
+import { ArrowDown, ArrowRight, Code2, Cloud, Sparkles, Zap, FileText } from "lucide-react";
 import { projects } from "../data/projects";
 import { skills, skillCategories } from "../data/skills";
 
@@ -14,16 +14,6 @@ const container = {
 const item = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: easeOutExpo } },
-};
-
-const nameReveal = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.15 } },
-};
-
-const letterVariant = {
-  hidden: { opacity: 0, y: 30, rotateX: -90 },
-  visible: { opacity: 1, y: 0, rotateX: 0, transition: { duration: 0.45, ease: easeOutExpo } },
 };
 
 const featuredProjects = projects.filter((p) => p.featured);

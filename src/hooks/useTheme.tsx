@@ -24,8 +24,6 @@ const resolveTheme = (t: Theme): "dark" | "light" => {
   return t;
 };
 
-const cycleOrder: Theme[] = ["light", "dark", "system"];
-
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setThemeState] = useState<Theme>(getInitialTheme);
   const [resolved, setResolved] = useState<"dark" | "light">(() => resolveTheme(getInitialTheme()));
