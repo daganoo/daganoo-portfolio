@@ -1,13 +1,33 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, Send, Loader2 } from "lucide-react";
+
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mzdwaejr";
 
 export const Contact = () => {
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setStatus("loading");
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -74,7 +94,7 @@ export const Contact = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          {submitted ? (
+          {status === "success" ? (
             <div className="flex flex-col items-center rounded-xl border border-border bg-card p-8 text-center shadow-sm">
               <div className="mb-4 rounded-full bg-green-500/10 p-4 text-green-500">
                 <Send size={32} />
@@ -84,6 +104,22 @@ export const Contact = () => {
                 Thank you for reaching out. I&apos;ll get back to you soon.
               </p>
             </div>
+          ) : status === "error" ? (
+            <div className="flex flex-col items-center rounded-xl border border-border bg-card p-8 text-center shadow-sm">
+              <div className="mb-4 rounded-full bg-red-500/10 p-4 text-red-500">
+                <Send size={32} />
+              </div>
+              <h3 className="mb-2 text-xl font-semibold text-card-foreground">Something went wrong</h3>
+              <p className="mb-4 text-muted-foreground">
+                Please try again or email me directly.
+              </p>
+              <button
+                onClick={() => setStatus("idle")}
+                className="text-sm text-primary transition-colors hover:text-primary/80"
+              >
+                Try again
+              </button>
+            </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-border bg-card p-6 shadow-sm">
               <div>
@@ -92,6 +128,7 @@ export const Contact = () => {
                 </label>
                 <input
                   id="name"
+                  name="name"
                   type="text"
                   required
                   className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring"
@@ -105,6 +142,7 @@ export const Contact = () => {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   required
                   className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring"
@@ -118,6 +156,7 @@ export const Contact = () => {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   required
                   rows={4}
                   className="w-full resize-none rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring"
@@ -127,10 +166,20 @@ export const Contact = () => {
 
               <button
                 type="submit"
-                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                disabled={status === "loading"}
+                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60"
               >
-                <Send size={18} />
-                Send Message
+                {status === "loading" ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send size={18} />
+                    Send Message
+                  </>
+                )}
               </button>
             </form>
           )}

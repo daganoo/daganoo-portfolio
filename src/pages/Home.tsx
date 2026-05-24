@@ -3,18 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight, Code2, Cloud, Sparkles, Zap, FileText } from "lucide-react";
 import { projects } from "../data/projects";
 import { skills, skillCategories } from "../data/skills";
-
-const easeOutExpo = [0.25, 0.46, 0.45, 0.94] as const;
-
-const container = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: easeOutExpo } },
-};
+import { container, item } from "../utils/animations";
 
 const featuredProjects = projects.filter((p) => p.featured);
 
@@ -41,21 +30,16 @@ export const Home = () => {
     <>
       <section className="relative flex min-h-[90vh] items-center overflow-hidden">
         <div
+          className="pointer-events-none absolute -left-16 -top-10 hidden h-[700px] w-[700px] rounded-full opacity-50 blur-[120px] dark:block"
+          style={{ background: "radial-gradient(circle at center, #7c3aed 0%, #1e3a5f 55%, transparent 85%)" }}
+        />
+        <div
           className="pointer-events-none absolute -right-24 top-[15%] hidden h-[450px] w-[450px] rounded-full opacity-50 blur-[90px] dark:block"
           style={{ background: "radial-gradient(circle at center, #00b4a0 0%, transparent 70%)" }}
         />
         <div
           className="pointer-events-none absolute -right-32 top-[25%] hidden h-[600px] w-[600px] rounded-full opacity-60 blur-[120px] dark:block"
           style={{ background: "radial-gradient(circle at center, #1a3a8f 0%, transparent 65%)" }}
-        />
-        <div
-          className="pointer-events-none absolute inset-0 z-[1] hidden dark:block"
-          style={{
-            backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-            backgroundRepeat: "repeat",
-            backgroundSize: "256px",
-            opacity: 0.04,
-          }}
         />
         <div className="container-page relative z-[2] mx-auto">
           <motion.div
@@ -67,9 +51,10 @@ export const Home = () => {
             <motion.div variants={item} className="shrink-0">
               <div className="relative h-32 w-32 overflow-hidden rounded-full border-4 border-border bg-muted md:h-48 md:w-64 lg:h-64 lg:w-64">
                 <img
-                  src="/images/avatar.jpg"
+                  src="/images/avatar.webp"
                   alt="Marouane Dagana"
                   className="h-full w-full object-cover"
+                  fetchPriority="high"
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                   }}
@@ -248,15 +233,6 @@ export const Home = () => {
           className="pointer-events-none absolute -right-28 top-[20%] hidden h-[550px] w-[550px] rounded-full opacity-55 blur-[120px] dark:block"
           style={{ background: "radial-gradient(circle at center, #4c1d95 0%, transparent 65%)" }}
         />
-        <div
-          className="pointer-events-none absolute inset-0 z-[1] hidden dark:block"
-          style={{
-            backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-            backgroundRepeat: "repeat",
-            backgroundSize: "256px",
-            opacity: 0.04,
-          }}
-        />
         <div className="container-page relative z-[2] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -287,6 +263,7 @@ export const Home = () => {
                   <img
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
                       e.currentTarget.style.display = "none";

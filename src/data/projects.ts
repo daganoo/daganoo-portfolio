@@ -18,7 +18,7 @@ export const projects: Project[] = [
       "TypeScript",
     ],
     category: "AI/Bedrock",
-    image: "/images/projects/ai-content-generator.jpg",
+    image: "/images/projects/ai-content-generator.webp",
     links: {
       live: "https://ai-content.example.com",
       source: "https://github.com/daganoo/ai-content-generator",
@@ -42,7 +42,7 @@ export const projects: Project[] = [
       "ElastiCache",
     ],
     category: "AWS Cloud",
-    image: "/images/projects/wordpress-aws.jpg",
+    image: "/images/projects/wordpress-aws.webp",
     links: {
       live: "https://wordpress-aws.example.com",
       source: "https://github.com/daganoo/wordpress-aws",
@@ -66,7 +66,7 @@ export const projects: Project[] = [
       "DynamoDB",
     ],
     category: "Full-Stack React+Node",
-    image: "/images/projects/smart-contact-form.jpg",
+    image: "/images/projects/smart-contact-form.webp",
     links: {
       live: "https://contact-form.example.com",
       source: "https://github.com/daganoo/smart-contact-form",
@@ -90,7 +90,7 @@ export const projects: Project[] = [
       "SNS",
     ],
     category: "n8n Automation",
-    image: "/images/projects/hahoi-smart-plant.jpg",
+    image: "/images/projects/hahoi-smart-plant.webp",
     links: {
       source: "https://github.com/daganoo/hahoi-smart-plant",
     },
