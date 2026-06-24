@@ -1,82 +1,32 @@
-import { Skill } from "../types";
+import { SkillGroup } from "../types";
 
-export const skills: Skill[] = [
+export const skillGroups: SkillGroup[] = [
   {
-    name: "AWS",
-    icon: "Cloud",
-    category: "Cloud & Infrastructure",
-    proficiency: 90,
-    years: 4,
-  },
-  {
-    name: "S3",
-    icon: "Database",
-    category: "Cloud & Infrastructure",
-    proficiency: 85,
-    years: 3,
-  },
-  {
-    name: "Lambda",
-    icon: "Zap",
-    category: "Cloud & Infrastructure",
-    proficiency: 85,
-    years: 3,
-  },
-  {
-    name: "Docker",
-    icon: "Container",
-    category: "Cloud & Infrastructure",
-    proficiency: 75,
-    years: 2,
-  },
-  {
-    name: "React",
-    icon: "Code2",
     category: "Frontend",
-    proficiency: 90,
-    years: 4,
+    details: "React, Next.js, JavaScript (ES6+), HTML5, CSS3",
   },
   {
-    name: "Node.js",
-    icon: "Server",
-    category: "Backend",
-    proficiency: 85,
-    years: 4,
+    category: "Backend & Databases",
+    details: "Node.js, Laravel, PHP, JAVA, Python, REST APIs — MySQL, PostgreSQL, MongoDB, SQLite",
   },
   {
-    name: "Python",
-    icon: "Terminal",
-    category: "Backend",
-    proficiency: 80,
-    years: 3,
+    category: "Cloud & DevOps",
+    details: "AWS (Bedrock, Lambda, API Gateway, DynamoDB, S3, CloudFront, EC2, RDS, ELB, Auto Scaling, EFS, Route 53, ACM, VPC), GitHub Actions, CI/CD, Docker",
   },
   {
-    name: "DynamoDB",
-    icon: "Table",
-    category: "Backend",
-    proficiency: 80,
-    years: 3,
+    category: "AI & Automation",
+    details: "AWS Bedrock, OpenAI API, RAG / Knowledge Base integrations, n8n automation workflows",
   },
   {
-    name: "Bedrock",
-    icon: "Sparkles",
-    category: "AI & Machine Learning",
-    proficiency: 80,
-    years: 2,
+    category: "Tools",
+    details: "Git, WordPress, Supabase",
   },
   {
-    name: "n8n",
-    icon: "Workflow",
-    category: "Automation",
-    proficiency: 85,
-    years: 2,
+    category: "Mobile & Desktop Development",
+    details: "React Native, Flutter — JavaFX, Tkinter (Python GUI), Electron.js",
+  },
+  {
+    category: "Languages",
+    details: "Arabic (Native), French (Professional), English (Fluent)",
   },
 ];
-
-export const skillCategories = [
-  "Cloud & Infrastructure",
-  "Frontend",
-  "Backend",
-  "AI & Machine Learning",
-  "Automation",
-] as const;

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight, Code2, Cloud, Sparkles, Zap, FileText } from "lucide-react";
 import { projects } from "../data/projects";
-import { skills, skillCategories } from "../data/skills";
+import { skillGroups } from "../data/skills";
 import { container, item } from "../utils/animations";
 
 const featuredProjects = projects.filter((p) => p.featured);
@@ -15,11 +15,13 @@ const highlights = [
 ];
 
 const categoryAccent: Record<string, string> = {
-  "Cloud & Infrastructure": "text-blue-500",
-  Frontend: "text-purple-500",
-  Backend: "text-green-500",
-  "AI & Machine Learning": "text-orange-500",
-  Automation: "text-orange-500",
+  Frontend: "text-blue-500",
+  "Backend & Databases": "text-green-500",
+  "Cloud & DevOps": "text-cyan-500",
+  "AI & Automation": "text-orange-500",
+  Tools: "text-yellow-500",
+  "Mobile & Desktop Development": "text-purple-500",
+  Languages: "text-rose-500",
 };
 
 export const Home = () => {
@@ -169,32 +171,22 @@ export const Home = () => {
           </div>
 
           <div className="mx-auto mt-16 max-w-4xl space-y-6">
-            {skillCategories.map((category, catIndex) => {
-              const catSkills = skills.filter((s) => s.category === category);
-              return (
-                <motion.div
-                  key={category}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: catIndex * 0.1, duration: 0.4 }}
-                >
-                  <h3 className={`mb-3 text-sm font-semibold uppercase tracking-wider ${categoryAccent[category]}`}>
-                    {category}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {catSkills.map((skill) => (
-                      <span
-                        key={skill.name}
-                        className="inline-flex items-center rounded-full border border-border/60 bg-muted/70 px-3 py-1 text-[11px] font-medium text-foreground/80 transition-colors hover:scale-105 md:px-2 md:py-0.5"
-                      >
-                        {skill.name}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              );
-            })}
+            {skillGroups.map((group, catIndex) => (
+              <motion.div
+                key={group.category}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: catIndex * 0.1, duration: 0.4 }}
+              >
+                <h3 className={`mb-3 text-sm font-semibold uppercase tracking-wider ${categoryAccent[group.category]}`}>
+                  {group.category}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {group.details}
+                </p>
+              </motion.div>
+            ))}
           </div>
 
           <motion.div
@@ -212,10 +204,10 @@ export const Home = () => {
               <ArrowRight size={16} className="ml-2" />
             </Link>
             <a
-              href="/resume.pdf"
+              href="/resume.html"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-input bg-background px-8 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground sm:w-auto"
+              className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
             >
               <FileText size={16} />
               View Resume
@@ -257,6 +249,10 @@ export const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.12, duration: 0.5 }}
+                className="h-full"
+              >
+              <Link
+                to={`/projects/${project.id}`}
                 className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm transition-shadow hover:border-border/80 hover:shadow-md"
               >
                 <div className="relative h-40 overflow-hidden bg-gradient-to-br from-muted to-background">
@@ -291,6 +287,7 @@ export const Home = () => {
                     ))}
                   </div>
                 </div>
+              </Link>
               </motion.div>
             ))}
           </div>

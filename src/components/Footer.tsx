@@ -24,10 +24,10 @@ export const Footer = () => {
         </p>
         <div className="flex items-center gap-4">
           <a
-            href="/resume.pdf"
+            href="/resume.html"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             <FileText size={14} />
             Resume

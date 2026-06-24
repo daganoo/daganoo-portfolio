@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Search } from "lucide-react";
 import { projects, projectCategories } from "../data/projects";
@@ -97,61 +98,65 @@ export const Projects = () => {
                 exit="exit"
                 className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm transition-shadow hover:border-border/80 hover:shadow-md"
               >
-                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-muted to-background">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                    }}
-                  />
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <div className="mb-3">
-                    <span className="inline-flex items-center rounded-md border border-border px-2.5 py-0.5 text-xs font-semibold text-foreground">
-                      {project.category}
-                    </span>
+                <Link to={`/projects/${project.id}`} className="flex flex-1 flex-col">
+                  <div className="relative h-48 overflow-hidden bg-gradient-to-br from-muted to-background">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
                   </div>
-                  <h3 className="mb-2 text-xl font-semibold">{project.title}</h3>
-                  <p className="mb-4 flex-1 text-sm leading-relaxed text-muted-foreground">
-                    {project.description}
-                  </p>
-                  <div className="mb-4 flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-md border border-border/60 bg-muted/50 px-2 py-0.5 text-[11px] text-muted-foreground"
-                      >
-                        {tag}
+                  <div className="flex flex-1 flex-col p-6">
+                    <div className="mb-3">
+                      <span className="inline-flex items-center rounded-md border border-border px-2.5 py-0.5 text-xs font-semibold text-foreground">
+                        {project.category}
                       </span>
-                    ))}
+                    </div>
+                    <h3 className="mb-2 text-xl font-semibold">{project.title}</h3>
+                    <p className="mb-4 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {project.description}
+                    </p>
+                    <div className="mb-4 flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-md border border-border/60 bg-muted/50 px-2 py-0.5 text-[11px] text-muted-foreground"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    {project.links.live && (
-                      <a
-                        href={project.links.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/80"
-                      >
-                        <ExternalLink size={16} />
-                        Live Demo
-                      </a>
-                    )}
-                    {project.links.source && (
-                      <a
-                        href={project.links.source}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-                      >
-                        <GithubIcon size={16} />
-                        Source
-                      </a>
-                    )}
-                  </div>
+                </Link>
+                <div className="flex items-center gap-4 px-6 pb-6">
+                  {project.links.live && (
+                    <a
+                      href={project.links.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <ExternalLink size={16} />
+                      Live Demo
+                    </a>
+                  )}
+                  {project.links.source && (
+                    <a
+                      href={project.links.source}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <GithubIcon size={16} />
+                      Source
+                    </a>
+                  )}
                 </div>
               </motion.div>
             ))

@@ -20,10 +20,12 @@ export const About = () => {
         <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
           About Me
         </h2>
-        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground">
-          I&apos;m an AWS &amp; AI developer who helps businesses integrate intelligent features into
-          their products. From AI-powered apps with AWS Bedrock and OpenAI, to RAG systems,
-          serverless backends, and automation workflows with n8n — I build solutions that ship.
+        <p className="mt-6 max-w-none text-lg leading-relaxed text-muted-foreground">
+          I&apos;m a Full-Stack Developer and AWS/AI Engineer with 4+ years of experience building web,
+          desktop, and mobile applications. I specialize in adding AI capabilities to products,
+          chatbots, RAG systems, automation workflows, and intelligent serverless backends built on
+          AWS Bedrock, Lambda, and modern AI APIs. I take full ownership from architecture to
+          deployment. Clean code, clear communication.
         </p>
       </motion.div>
 

@@ -15,24 +15,14 @@ export interface Project {
 
 export type ProjectCategory =
   | "AWS Cloud"
+  | "AWS Cloud + DevOps"
   | "AI/Bedrock"
-  | "Full-Stack React+Node"
-  | "n8n Automation";
+  | "Full-Stack React+Node";
 
-export interface Skill {
-  name: string;
-  icon: string;
-  category: SkillCategory;
-  proficiency: number;
-  years: number;
+export interface SkillGroup {
+  category: string;
+  details: string;
 }
-
-export type SkillCategory =
-  | "Cloud & Infrastructure"
-  | "Frontend"
-  | "Backend"
-  | "AI & Machine Learning"
-  | "Automation";
 
 export interface Experience {
   id: string;

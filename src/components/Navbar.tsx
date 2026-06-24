@@ -74,11 +74,11 @@ export const Navbar = () => {
             );
           })}
           <a
-            href="/resume.pdf"
+            href="/resume.html"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open resume"
-            className="rounded-md p-2 transition-colors hover:bg-accent hover:text-accent-foreground"
+            className="rounded-md p-2 text-primary transition-colors hover:bg-primary/10"
           >
             <FileText size={18} />
           </a>
@@ -163,10 +163,10 @@ export const Navbar = () => {
                 Resume
               </p>
               <a
-                href="/resume.pdf"
+                href="/resume.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground/70 transition-colors hover:bg-accent"
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-primary transition-colors hover:bg-primary/10"
               >
                 <FileText size={20} className="shrink-0" />
                 <span className="text-sm font-medium">View Resume</span>
