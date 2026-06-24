@@ -207,7 +207,7 @@ export const projects: Project[] = [
       live: "https://smart-contact-form.vercel.app",
       source: "https://github.com/daganoo/smart_contact_form",
     },
-    featured: true,
+    featured: false,
   },
   {
     id: "hahoi-smart-plant",
