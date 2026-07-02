@@ -102,7 +102,7 @@ export const projects: Project[] = [
     links: {
       source: "https://github.com/daganoo/wordpress-aws-autoscaling",
     },
-    featured: true,
+    featured: false,
   },
   {
     id: "techflow-dashboard",
@@ -154,7 +154,7 @@ export const projects: Project[] = [
     links: {
       source: "https://github.com/daganoo/dashboard-cicd",
     },
-    featured: true,
+    featured: false,
   },
   {
     id: "smart-contact-form",
@@ -253,7 +253,7 @@ export const projects: Project[] = [
     category: "Full-Stack React+Node",
     image: "/images/projects/hahoi-smart-plant.webp",
     links: {
-      source: "https://github.com/daganoo/hahoi-smart-plant",
+      source: "https://github.com/daganoo/smart-plant-care",
     },
     featured: false,
   },
@@ -306,9 +306,9 @@ export const projects: Project[] = [
     category: "Full-Stack React+Node",
     image: "/images/projects/nexmart.webp",
     links: {
-      source: "https://github.com/daganoo/nexmart-aws-ecommerce",
+      source: "https://github.com/daganoo/nexmart",
     },
-    featured: false,
+    featured: true,
   },
   {
     id: "popcorn-movies",
@@ -411,7 +411,7 @@ export const projects: Project[] = [
     category: "AWS Cloud",
     image: "/images/projects/php-migration.webp",
     links: {
-      source: "https://github.com/daganoo/php-app-migration-aws",
+      source: "https://github.com/daganoo/php-aws-migration",
     },
     featured: false,
   },
@@ -509,12 +509,13 @@ export const projects: Project[] = [
       "Recharts",
       "React Hook Form",
     ],
-    category: "Full-Stack React+Node",
+    category: "React Frontend",
     image: "/images/projects/wild-oasis.webp",
     links: {
+      live: "https://the-wild-oasis-livid-eta.vercel.app",
       source: "https://github.com/daganoo/the-wild-oasis",
     },
-    featured: false,
+    featured: true,
   },
 ];
 
@@ -524,4 +525,5 @@ export const projectCategories = [
   "AWS Cloud + DevOps",
   "AI/Bedrock",
   "Full-Stack React+Node",
+  "React Frontend",
 ] as const;

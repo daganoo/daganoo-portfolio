@@ -17,7 +17,8 @@ export type ProjectCategory =
   | "AWS Cloud"
   | "AWS Cloud + DevOps"
   | "AI/Bedrock"
-  | "Full-Stack React+Node";
+  | "Full-Stack React+Node"
+  | "React Frontend";
 
 export interface SkillGroup {
   category: string;

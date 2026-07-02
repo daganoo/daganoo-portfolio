@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
+import { ScrollToTopButton } from "./components/ScrollToTop";
 import { Home } from "./pages/Home";
 import { ProjectsPage } from "./pages/Projects";
 import { ProjectDetail } from "./pages/ProjectDetail";
@@ -31,6 +32,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 }
