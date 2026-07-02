@@ -468,6 +468,54 @@ export const projects: Project[] = [
     },
     featured: false,
   },
+  {
+    id: "the-wild-oasis",
+    title: "The Wild Oasis — Hotel Management Dashboard",
+    description:
+      "Full-stack internal hotel management dashboard — bookings, check-ins, cabins, analytics, and settings. React + Supabase + React Query + styled-components with dark mode.",
+    longDescription:
+      "A full-stack internal hotel management dashboard built for a boutique hotel. A back-office tool where staff manage every aspect of daily operations — bookings, check-ins/check-outs, cabins, analytics, and hotel-wide settings.\n\n" +
+      "✦ Why This Project Matters\n" +
+      "• Performant — server state cached and synchronized via React Query, minimizing network requests while keeping data fresh\n" +
+      "• Scalable — features organized into self-contained domain modules (auth, bookings, cabins, dashboard, settings)\n" +
+      "• Maintainable — clear separation: ui/ for reusable components, features/ for domain logic, services/ for API layer\n" +
+      "• Real-world Ready — loading states, empty states, error boundaries, form validation, optimistic updates, pagination\n\n" +
+      "✦ Features\n" +
+      "• Dashboard — stats cards, stay duration pie chart, sales trend area chart, filterable by 7/30/90 days\n" +
+      "• Bookings — full CRUD table with status filtering, sorting, and pagination\n" +
+      "• Check-in/out — guest check-in workflow (confirm payment, optional breakfast), checkout confirmation\n" +
+      "• Cabins — CRUD table for managing hotel cabins with image upload capability\n" +
+      "• Settings — hotel-wide configuration (min/max nights, max guests, breakfast price)\n" +
+      "• Authentication — staff login/signup, profile updates (name, avatar, password change)\n" +
+      "• Dark mode — light/dark theme toggle with localStorage persistence\n\n" +
+      "✦ Tech Stack & Rationale\n" +
+      "• React 18 — component architecture for complex interactive UI\n" +
+      "• Vite — ultra-fast dev server with HMR, optimized production builds\n" +
+      "• React Router v6 — nested layouts, protected routes, URL-based navigation\n" +
+      "• TanStack React Query v4 — server state management, caching, background refetching, optimistic updates\n" +
+      "• Supabase — PostgreSQL database + auth + file storage as backend-as-a-service, Row Level Security\n" +
+      "• styled-components v5 — co-located CSS-in-JS with dynamic theming (light/dark)\n" +
+      "• React Hook Form v7 — performant form management with minimal re-renders\n" +
+      "• Recharts v2 — composable charting for dashboard analytics\n" +
+      "• react-hot-toast — toast notifications for all mutations\n" +
+      "• react-error-boundary — graceful error handling with fallback UI\n\n" +
+      "Full documentation, screenshots, seed data, and setup guide available on GitHub. Demo credentials: admin@gmail.com / pass1234.",
+    tags: [
+      "React",
+      "Vite",
+      "Supabase",
+      "React Query",
+      "styled-components",
+      "Recharts",
+      "React Hook Form",
+    ],
+    category: "Full-Stack React+Node",
+    image: "/images/projects/wild-oasis.webp",
+    links: {
+      source: "https://github.com/daganoo/the-wild-oasis",
+    },
+    featured: false,
+  },
 ];
 
 export const projectCategories = [
