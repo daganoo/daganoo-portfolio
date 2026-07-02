@@ -5,7 +5,7 @@ import { projects } from "../data/projects";
 import { skillGroups } from "../data/skills";
 import { container, item } from "../utils/animations";
 
-const featuredProjects = projects.filter((p) => p.featured);
+const featuredProjects = projects.filter((p) => p.featured).reverse();
 
 const highlights = [
   { icon: Cloud, label: "AWS Cloud", description: "Serverless architectures, EC2, S3, Lambda, DynamoDB" },

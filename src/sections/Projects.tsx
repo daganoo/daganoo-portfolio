@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Search } from "lucide-react";
+import { ExternalLink, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { projects, projectCategories } from "../data/projects";
 import { ProjectCategory } from "../types";
 import { GithubIcon } from "../components/icons/GithubIcon";
+
+const ITEMS_PER_PAGE = 8;
 
 const cardVars = {
   hidden: { opacity: 0, y: 30 },
@@ -15,10 +17,11 @@ const cardVars = {
 export const Projects = () => {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory | "All">("All");
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const catFiltered = activeCategory === "All"
-    ? projects
-    : projects.filter((p) => p.category === activeCategory);
+    ? [...projects].reverse()
+    : [...projects].reverse().filter((p) => p.category === activeCategory);
 
   const q = searchTerm.toLowerCase();
   const filtered = q
@@ -30,6 +33,22 @@ export const Projects = () => {
           p.category.toLowerCase().includes(q)
       )
     : catFiltered;
+
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const paginated = filtered.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const handleCategoryChange = (category: ProjectCategory | "All") => {
+    setActiveCategory(category);
+    setCurrentPage(1);
+  };
+
+  const handleSearch = (value: string) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+  };
 
   return (
     <section className="container-page mx-auto py-24">
@@ -53,7 +72,7 @@ export const Projects = () => {
           {projectCategories.map((category) => (
             <button
               key={category}
-              onClick={() => setActiveCategory(category)}
+              onClick={() => handleCategoryChange(category)}
               className={`rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
                 activeCategory === category
                   ? "border-primary bg-primary text-primary-foreground"
@@ -69,7 +88,7 @@ export const Projects = () => {
           <input
             type="text"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => handleSearch(e.target.value)}
             placeholder="Search projects..."
             className="w-full rounded-md border border-input bg-background py-2.5 pl-10 pr-4 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring sm:w-64"
           />
@@ -78,7 +97,7 @@ export const Projects = () => {
 
       <div className="grid gap-8 md:grid-cols-2">
         <AnimatePresence mode="popLayout">
-          {filtered.length === 0 ? (
+          {paginated.length === 0 ? (
             <motion.p
               key="empty"
               initial={{ opacity: 0 }}
@@ -88,7 +107,7 @@ export const Projects = () => {
               No projects match your search.
             </motion.p>
           ) : (
-            filtered.map((project) => (
+            paginated.map((project) => (
               <motion.div
                 key={project.id}
                 layout
@@ -163,6 +182,38 @@ export const Projects = () => {
           )}
         </AnimatePresence>
       </div>
+
+      {totalPages > 1 && (
+        <div className="mt-12 flex items-center justify-center gap-2">
+          <button
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium transition-colors ${
+                page === currentPage
+                  ? "bg-primary text-primary-foreground"
+                  : "border border-border text-muted-foreground hover:bg-accent hover:text-foreground"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+          <button
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      )}
     </section>
   );
 };

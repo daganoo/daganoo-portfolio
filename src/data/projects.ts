@@ -257,6 +257,217 @@ export const projects: Project[] = [
     },
     featured: false,
   },
+  {
+    id: "nexmart-ecommerce",
+    title: "NexMart — Full-Stack E-Commerce on AWS",
+    description:
+      "Production-style MERN e-commerce platform deployed on scalable AWS — Auto Scaling EC2, CloudFront CDN, Stripe payments, admin dashboard, and load-tested for traffic spikes.",
+    longDescription:
+      "A production-style e-commerce application built with the MERN stack and deployed on scalable AWS infrastructure. Demonstrates end-to-end skills in full-stack development, cloud architecture, auto-scaling, CDN delivery, and payment integration.\n\n" +
+      "✦ Why This Project Matters\n" +
+      "• Built to scale, not just to work — deployed behind an ALB with Auto Scaling Group, adds capacity under traffic spikes and scales back to control cost\n" +
+      "• Fast for real users globally — product images and static assets served through CloudFront CDN for low-latency worldwide delivery\n" +
+      "• Real payment flow — Checkout wired to Stripe, covering full cart → payment → order confirmation\n" +
+      "• Operationally realistic — admin dashboard for product CRUD, order overview, and sales insights\n" +
+      "• Validated scaling — load tested with Artillery, instance count confirmed going from 1 → 2 under load in CloudWatch\n" +
+      "• Cost-conscious design — same Auto Scaling that adds capacity also scales down during idle periods\n\n" +
+      "✦ Features\n" +
+      "• Storefront — product catalog, category filtering, product detail pages\n" +
+      "• Cart & Checkout — persistent cart, Stripe-powered checkout with test card support\n" +
+      "• Order Management — order history, order confirmation, status tracking\n" +
+      "• Admin Dashboard — product CRUD, order overview, sales insights\n" +
+      "• Authentication — secure user registration/login with bcrypt-hashed passwords and JWT sessions\n" +
+      "• Scalable Infrastructure — horizontal auto-scaling under load, verified via Artillery load testing\n\n" +
+      "✦ Architecture\n" +
+      "• Frontend: React + React Router + Context API — responsive storefront with dynamic product pages\n" +
+      "• CDN: CloudFront + S3 — static assets and product images served globally with low latency\n" +
+      "• Load Balancer: Application Load Balancer — distributes API traffic across EC2 instances\n" +
+      "• Compute: Auto Scaling Group of EC2 t3.micro instances — scales based on CPU utilization\n" +
+      "• Backend: Node.js + Express — REST API with JWT auth middleware, Mongoose ODM\n" +
+      "• Database: MongoDB Atlas (M0, Paris region) — persistent storage for users, products, orders, cart\n" +
+      "• Payments: Stripe API — secure checkout in test mode with full transaction history\n" +
+      "• Load Testing: Artillery — verified auto-scaling from 1 to 2 instances under simulated traffic\n\n" +
+      "✦ Infrastructure Highlights\n" +
+      "• Auto Scaling configured to scale out when average CPU crosses threshold, scale back in during low traffic\n" +
+      "• ALB health checks ensure traffic only hits healthy instances\n" +
+      "• CloudFront CDN for product images and frontend assets — global edge caching\n" +
+      "• Load tested and verified — scaling behavior confirmed in CloudWatch metrics and ASG activity log\n\n" +
+      "Full documentation, architecture diagrams, screenshots, and load test config available on GitHub.",
+    tags: [
+      "React",
+      "Node.js",
+      "MongoDB",
+      "Express",
+      "EC2",
+      "Auto Scaling",
+      "CloudFront",
+      "Stripe",
+    ],
+    category: "Full-Stack React+Node",
+    image: "/images/projects/nexmart.webp",
+    links: {
+      source: "https://github.com/daganoo/nexmart-aws-ecommerce",
+    },
+    featured: false,
+  },
+  {
+    id: "popcorn-movies",
+    title: "PopCorn Movies — AWS Cloud Deployment",
+    description:
+      "React movie app deployed on AWS serverless (S3 + CloudFront) with automated CI/CD via GitHub Actions. 400+ edge locations globally, <200ms load times, ~$2-5/month.",
+    longDescription:
+      "A React movie app deployed on AWS serverless infrastructure with automated CI/CD pipeline. This project demonstrates modern cloud deployment practices, DevOps workflows, and AWS service integration.\n\n" +
+      "✦ Key Achievements\n" +
+      "• Global Load Time: <200ms worldwide via CloudFront's 400+ edge locations\n" +
+      "• Deployment Time: 2 minutes (85% faster than manual deployment)\n" +
+      "• Monthly Cost: $2-5 (70% cost reduction vs traditional hosting)\n" +
+      "• Uptime: 99.99% with AWS managed infrastructure\n\n" +
+      "✦ Features\n" +
+      "• Movie search powered by OMDb API — browse thousands of movies with instant results\n" +
+      "• Movie details and ratings — view IMDb ratings, cast, plot, runtime, and genre\n" +
+      "• Custom error handling — friendly 404 page with navigation back to home\n" +
+      "• Responsive design — works seamlessly on desktop, tablet, and mobile\n\n" +
+      "✦ Architecture\n" +
+      "• Frontend: React + JavaScript — intentionally simple app, focus is on infrastructure\n" +
+      "• Storage: S3 bucket (eu-west-3) — static website hosting, origin for CloudFront\n" +
+      "• CDN: CloudFront — HTTPS, global edge caching at 400+ locations, automatic SSL via ACM\n" +
+      "• CI/CD: GitHub Actions — git push triggers build → deploy to S3 → CloudFront cache invalidation\n" +
+      "• Security: IAM least-privilege policies, no hardcoded secrets, environment variables only\n\n" +
+      "✦ CI/CD Pipeline\n" +
+      "• Every push to main: checkout → npm install → npm build → S3 sync → CloudFront invalidation\n" +
+      "• Zero-downtime deployments with automatic rollback on build failures\n" +
+      "• Full deployment history in GitHub Actions logs\n\n" +
+      "✦ Global Performance\n" +
+      "• Paris (origin): 30ms | New York: 60ms | Tokyo: 50ms | London: 45ms | Sydney: 65ms\n" +
+      "• Average global load time: <200ms — 13-24x faster than serving from a single origin\n\n" +
+      "✦ Cost\n" +
+      "~$2-5/month (S3 ~$0.03, CloudFront ~$2). First year with free tier: ~$0.50-1/month. 70% cheaper than traditional hosting.\n\n" +
+      "Full documentation, architecture diagrams, screenshots, and deployment guide available on GitHub.",
+    tags: [
+      "React",
+      "S3",
+      "CloudFront",
+      "GitHub Actions",
+      "IAM",
+      "CI/CD",
+      "ACM",
+    ],
+    category: "AWS Cloud + DevOps",
+    image: "/images/projects/popcorn-movies.webp",
+    links: {
+      live: "https://d31lnk1d97vqkv.cloudfront.net",
+      source: "https://github.com/daganoo/PopCorn_moviesRate",
+    },
+    featured: false,
+  },
+  {
+    id: "php-app-migration",
+    title: "PHP App Migration to AWS — Cloud Infrastructure",
+    description:
+      "Full migration of a Laravel accounting platform from shared hosting to AWS — EC2, RDS, ElastiCache Redis, S3, and CloudFront. 10x page load improvement, 50% cost savings.",
+    longDescription:
+      "A full migration of a legacy PHP application (Akaunting — an open-source accounting platform) from traditional shared hosting to production-grade AWS cloud infrastructure. Each concern now lives on its own dedicated managed service.\n\n" +
+      "✦ Why This Migration Mattered\n" +
+      "• Before: app, database, file storage, and cache all shared one server — competing for CPU/RAM\n" +
+      "• No automated backups — server failure meant data loss\n" +
+      "• Uploaded files stored on local disk — breaks immediately with multiple servers\n" +
+      "• Sessions in local files — can't share state across instances\n" +
+      "• No CDN — static assets served by the same PHP server handling requests\n\n" +
+      "✦ AWS Architecture\n" +
+      "• Compute: EC2 t2.micro running Nginx + PHP 8.3 + Laravel 11 (Akaunting 3.1)\n" +
+      "• Database: RDS MySQL 8.4 — isolated, automated daily backups, 7-day retention, Multi-AZ ready\n" +
+      "• Cache: ElastiCache Redis 7.1 — sessions and application cache in-memory, source of 10x page load improvement\n" +
+      "• Storage: S3 bucket for all uploaded files — 99.999999999% durability, survives EC2 termination\n" +
+      "• CDN: CloudFront — caches static assets (CSS, JS, images) at edge locations, reduces EC2 load\n" +
+      "• OS: Ubuntu 24.04 LTS — region eu-west-3 (Paris)\n\n" +
+      "✦ Security Architecture\n" +
+      "• RDS and ElastiCache: no public IP — only reachable from EC2 security group within VPC\n" +
+      "• EC2: dedicated security group (php-migration-sg), ports 22 (SSH key auth) and 80 (HTTP)\n" +
+      "• RDS: own security group, port 3306 open only to EC2 SG — nothing else can reach it\n" +
+      "• ElastiCache: port 6379 open only to EC2 SG\n" +
+      "• Defense in depth — 3 layers, each service isolated with least-privilege access\n\n" +
+      "✦ Key Technical Decisions\n" +
+      "• Why RDS over MySQL on EC2? Automated backups, automatic patching, one-click Multi-AZ — no single point of failure\n" +
+      "• Why ElastiCache Redis? Sessions in memory instead of disk files — enables horizontal scaling to multiple EC2 instances with shared state\n" +
+      "• Why S3 over local disk? Files survive instance reboots, replacements, and scaling events — 11 nines durability\n" +
+      "• Why CloudFront? Redirects static asset requests away from EC2 — faster global delivery, lower server load\n\n" +
+      "✦ Results\n" +
+      "• Database: single-server MySQL → isolated managed RDS with automated backups\n" +
+      "• File storage: EC2 local disk → S3 (99.999999999% durability)\n" +
+      "• Sessions/Cache: local files/DB queries → ElastiCache Redis in-memory (10x faster page loads)\n" +
+      "• Static assets: PHP server → CloudFront CDN global edge delivery\n" +
+      "• Cost: ~50% savings vs equivalent managed hosting\n\n" +
+      "Full documentation, architecture diagrams, screenshots, and step-by-step migration guide available on GitHub.",
+    tags: [
+      "PHP 8.3",
+      "Laravel",
+      "EC2",
+      "RDS",
+      "S3",
+      "ElastiCache",
+      "Redis",
+      "CloudFront",
+    ],
+    category: "AWS Cloud",
+    image: "/images/projects/php-migration.webp",
+    links: {
+      source: "https://github.com/daganoo/php-app-migration-aws",
+    },
+    featured: false,
+  },
+  {
+    id: "bookshelf-api",
+    title: "BookShelf — Full-Stack Book Collection Manager",
+    description:
+      "Track, rate, and organize your reading journey with a REST API and React dashboard. Express 5 + PostgreSQL + JWT auth + rate limiting + Swagger docs — deployed on AWS EC2 & RDS.",
+    longDescription:
+      "A full-stack book collection manager — track, rate, and organize your reading journey with a REST API and a React dashboard. Deployed on AWS EC2 with RDS PostgreSQL.\n\n" +
+      "✦ Features\n" +
+      "• JWT Authentication — register, login, protected routes with Bearer token\n" +
+      "• Full CRUD — create, read, update, delete books with status tracking\n" +
+      "• Status Filtering — want-to-read, reading, finished with color-coded badges\n" +
+      "• Rating System — 1-5 star ratings with review text\n" +
+      "• Owner Scoping — users can only see and manage their own books\n" +
+      "• Swagger API Docs — interactive OpenAPI 3.0 documentation at /api-docs\n" +
+      "• Postman Collection — all 8 endpoints with auto-populated JWT token\n" +
+      "• Rate Limiting — 100 req/15min global, 5 req/15min on auth endpoints\n\n" +
+      "✦ Architecture\n" +
+      "• Backend: Express 5 + Node.js — REST API with middleware chain (helmet, cors, morgan, rate-limit)\n" +
+      "• Database: PostgreSQL 15 on AWS RDS — users and books tables with foreign key relationship\n" +
+      "• Auth: JWT signed with secret + expiration — bcryptjs password hashing (10 salt rounds)\n" +
+      "• Validation: express-validator on all write endpoints — prevents malformed data\n" +
+      "• Frontend: React 18 + React Router 6 — Axios with JWT interceptor, plain CSS styling\n" +
+      "• Infrastructure: EC2 t2.micro (Ubuntu 22.04) + Nginx reverse proxy + RDS db.t3.micro in VPC\n\n" +
+      "✦ Frontend Pages\n" +
+      "• Login/Register — JWT stored in localStorage, auto-redirect to dashboard\n" +
+      "• Dashboard — book cards grid with status badges (gray/blue/green) and star ratings, filter dropdown\n" +
+      "• Add Book — form with title, author, genre, status, rating, and review fields\n" +
+      "• Book Detail — view mode with Edit toggle (inline inputs) and Delete button\n\n" +
+      "✦ Security\n" +
+      "• Password hashing: bcryptjs with 10 salt rounds\n" +
+      "• Token auth: JWT signed with secret + expiration (7d)\n" +
+      "• Rate limiting: express-rate-limit (100 global / 5 auth per 15 min)\n" +
+      "• HTTP headers: Helmet (CSP, HSTS, X-Frame-Options, X-Content-Type-Options)\n" +
+      "• Owner scoping: all book queries filter by user_id — zero data leakage between users\n" +
+      "• Input validation: express-validator on all POST/PUT endpoints\n\n" +
+      "Full documentation, architecture diagrams, Swagger spec, and Postman collection available on GitHub.",
+    tags: [
+      "Node.js",
+      "Express",
+      "React",
+      "PostgreSQL",
+      "JWT",
+      "bcrypt",
+      "REST API",
+      "AWS EC2",
+    ],
+    category: "Full-Stack React+Node",
+    image: "/images/projects/bookshelf.webp",
+    links: {
+      source: "https://github.com/daganoo/bookshelf-api",
+    },
+    featured: false,
+  },
 ];
 
 export const projectCategories = [
