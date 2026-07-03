@@ -9,7 +9,7 @@ const LinkedinIcon = ({ size }: { size: number }) => (
 
 const socialLinks = [
   { icon: GithubIcon, href: "https://github.com/daganoo", label: "GitHub" },
-  { icon: LinkedinIcon, href: "https://linkedin.com/in/daganoo", label: "LinkedIn" },
+  { icon: LinkedinIcon, href: "https://www.linkedin.com/in/marouane-dagana-418832264/", label: "LinkedIn" },
   { icon: Mail, href: "mailto:marwan.dagana@gmail.com", label: "Email" },
 ];
 

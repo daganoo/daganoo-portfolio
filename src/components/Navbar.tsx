@@ -49,7 +49,7 @@ export const Navbar = () => {
   return (
     <>
     <nav
-      className={`fixed top-0 z-50 h-16 w-full border-b border-border transition-colors ${
+      className={`fixed top-0 z-50 h-16 w-full border-b border-border/30 transition-colors ${
         scrolled || drawerOpen ? "bg-background/95 backdrop-blur-sm" : "bg-background"
       }`}
     >

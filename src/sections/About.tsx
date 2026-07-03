@@ -2,15 +2,18 @@ import { motion } from "framer-motion";
 import { Code2, Cloud, Sparkles, Zap } from "lucide-react";
 
 const highlights = [
-  { icon: Cloud, label: "AWS Cloud", description: "Serverless architectures, EC2, S3, Lambda, DynamoDB" },
-  { icon: Sparkles, label: "AI & Machine Learning", description: "Amazon Bedrock, generative AI pipelines, prompt engineering" },
-  { icon: Code2, label: "Full-Stack Development", description: "React, TypeScript, Node.js, Express, REST APIs" },
-  { icon: Zap, label: "Automation", description: "n8n workflows, CI/CD, infrastructure as code" },
+  { icon: Cloud, label: "AWS Cloud", description: "Serverless architectures, EC2, S3, Lambda, DynamoDB", color: "bg-blue-500/10 text-blue-500" },
+  { icon: Sparkles, label: "AI & Machine Learning", description: "Amazon Bedrock, generative AI pipelines, prompt engineering", color: "bg-emerald-500/10 text-emerald-500" },
+  { icon: Code2, label: "Full-Stack Development", description: "React, TypeScript, Node.js, Express, REST APIs", color: "bg-violet-500/10 text-violet-500" },
+  { icon: Zap, label: "Automation", description: "n8n workflows, CI/CD, infrastructure as code", color: "bg-cyan-500/10 text-cyan-500" },
 ];
 
 export const About = () => {
   return (
-    <section className="container-page mx-auto py-24">
+    <section className="relative container-page mx-auto py-24">
+      <div className="pointer-events-none absolute -left-32 top-1/3 hidden h-[600px] w-[600px] rounded-full opacity-35 blur-[120px] dark:block" style={{ background: "radial-gradient(circle at center, #4c1d95 0%, transparent 70%)" }} />
+      <div className="pointer-events-none absolute -right-20 top-2/3 hidden h-[400px] w-[400px] rounded-full opacity-20 blur-[100px] dark:block" style={{ background: "radial-gradient(circle at center, #1e3a5f 0%, transparent 70%)" }} />
+      <div className="relative z-[1]">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -39,13 +42,14 @@ export const About = () => {
             transition={{ delay: i * 0.1, duration: 0.5 }}
             className="rounded-xl border border-border bg-card p-6 text-center shadow-sm"
           >
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-              <hl.icon size={20} className="text-primary" />
+            <div className={`mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl ${hl.color}`}>
+              <hl.icon size={24} />
             </div>
             <h3 className="mb-2 font-semibold text-card-foreground">{hl.label}</h3>
             <p className="text-sm text-muted-foreground">{hl.description}</p>
           </motion.div>
         ))}
+      </div>
       </div>
     </section>
   );

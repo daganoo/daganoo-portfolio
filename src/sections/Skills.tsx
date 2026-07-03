@@ -25,7 +25,9 @@ const accentColors: Record<string, string> = {
 
 export const Skills = () => {
   return (
-    <section className="container-page mx-auto py-24">
+    <section className="relative container-page mx-auto py-24">
+      <div className="pointer-events-none absolute -right-32 top-1/4 hidden h-[500px] w-[500px] rounded-full opacity-25 blur-[100px] dark:block" style={{ background: "radial-gradient(circle at center, #1e3a5f 0%, transparent 70%)" }} />
+      <div className="relative z-[1]">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -64,6 +66,7 @@ export const Skills = () => {
             </motion.div>
           );
         })}
+      </div>
       </div>
     </section>
   );

@@ -66,7 +66,9 @@ const TimelineCard = ({ exp, i }: { exp: ExperienceType; i: number }) => {
 
 export const Experience = () => {
   return (
-    <section className="container-page mx-auto py-24">
+    <section className="relative container-page mx-auto py-24">
+      <div className="pointer-events-none absolute -left-20 top-1/3 hidden h-[400px] w-[400px] rounded-full opacity-25 blur-[100px] dark:block" style={{ background: "radial-gradient(circle at center, #7c3aed 0%, transparent 70%)" }} />
+      <div className="relative z-[1]">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -115,6 +117,7 @@ export const Experience = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

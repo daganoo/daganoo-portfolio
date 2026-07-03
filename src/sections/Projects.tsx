@@ -9,9 +9,9 @@ import { GithubIcon } from "../components/icons/GithubIcon";
 const ITEMS_PER_PAGE = 8;
 
 const cardVars = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  exit: { opacity: 0, y: -10, transition: { duration: 0.3 } },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  exit: { opacity: 0, transition: { duration: 0.2 } },
 };
 
 export const Projects = () => {
@@ -51,7 +51,9 @@ export const Projects = () => {
   };
 
   return (
-    <section className="container-page mx-auto py-24">
+    <section className="relative container-page mx-auto py-24">
+      <div className="pointer-events-none absolute -right-28 top-1/3 hidden h-[550px] w-[550px] rounded-full opacity-20 blur-[120px] dark:block" style={{ background: "radial-gradient(circle at center, #7c3aed 0%, transparent 65%)" }} />
+      <div className="relative z-[1]">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -96,7 +98,7 @@ export const Projects = () => {
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="wait">
           {paginated.length === 0 ? (
             <motion.p
               key="empty"
@@ -214,6 +216,7 @@ export const Projects = () => {
           </button>
         </div>
       )}
+      </div>
     </section>
   );
 };

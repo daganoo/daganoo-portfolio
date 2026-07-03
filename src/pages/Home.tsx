@@ -3,15 +3,15 @@ import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight, Code2, Cloud, Sparkles, Zap, FileText } from "lucide-react";
 import { projects } from "../data/projects";
 import { skillGroups } from "../data/skills";
-import { container, item } from "../utils/animations";
+import { item } from "../utils/animations";
 
 const featuredProjects = projects.filter((p) => p.featured).reverse();
 
 const highlights = [
-  { icon: Cloud, label: "AWS Cloud", description: "Serverless architectures, EC2, S3, Lambda, DynamoDB" },
-  { icon: Sparkles, label: "AI & Machine Learning", description: "Amazon Bedrock, generative AI pipelines, prompt engineering" },
-  { icon: Code2, label: "Full-Stack Development", description: "React, TypeScript, Node.js, Express, REST APIs" },
-  { icon: Zap, label: "Automation", description: "n8n workflows, CI/CD, infrastructure as code" },
+  { icon: Cloud, label: "AWS Cloud", description: "Serverless architectures, EC2, S3, Lambda, DynamoDB", color: "bg-blue-500/10 text-blue-500" },
+  { icon: Sparkles, label: "AI & Machine Learning", description: "Amazon Bedrock, generative AI pipelines, prompt engineering", color: "bg-emerald-500/10 text-emerald-500" },
+  { icon: Code2, label: "Full-Stack Development", description: "React, TypeScript, Node.js, Express, REST APIs", color: "bg-violet-500/10 text-violet-500" },
+  { icon: Zap, label: "Automation", description: "n8n workflows, CI/CD, infrastructure as code", color: "bg-cyan-500/10 text-cyan-500" },
 ];
 
 const categoryAccent: Record<string, string> = {
@@ -32,25 +32,25 @@ export const Home = () => {
     <>
       <section className="relative flex min-h-[90vh] items-center overflow-hidden">
         <div
-          className="pointer-events-none absolute -left-16 -top-10 hidden h-[700px] w-[700px] rounded-full opacity-50 blur-[120px] dark:block"
+          className="pointer-events-none absolute -left-16 -top-20 hidden h-[700px] w-[700px] rounded-full opacity-50 blur-[120px] dark:block"
           style={{ background: "radial-gradient(circle at center, #7c3aed 0%, #1e3a5f 55%, transparent 85%)" }}
         />
         <div
-          className="pointer-events-none absolute -right-24 top-[15%] hidden h-[450px] w-[450px] rounded-full opacity-50 blur-[90px] dark:block"
+          className="pointer-events-none absolute -right-24 top-[5%] hidden h-[450px] w-[450px] rounded-full opacity-50 blur-[90px] dark:block"
           style={{ background: "radial-gradient(circle at center, #00b4a0 0%, transparent 70%)" }}
         />
         <div
-          className="pointer-events-none absolute -right-32 top-[25%] hidden h-[600px] w-[600px] rounded-full opacity-60 blur-[120px] dark:block"
+          className="pointer-events-none absolute -right-32 top-[15%] hidden h-[600px] w-[600px] rounded-full opacity-60 blur-[120px] dark:block"
           style={{ background: "radial-gradient(circle at center, #1a3a8f 0%, transparent 65%)" }}
         />
         <div className="container-page relative z-[2] mx-auto">
           <motion.div
-            variants={container}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="mx-auto flex max-w-4xl flex-col items-center gap-8 text-center"
           >
-            <motion.div variants={item} className="shrink-0">
+            <div className="shrink-0">
               <div className="relative h-32 w-32 overflow-hidden rounded-full border-4 border-border bg-muted md:h-48 md:w-64 lg:h-64 lg:w-64">
                 <img
                   src="/images/avatar.webp"
@@ -65,7 +65,7 @@ export const Home = () => {
                   MD
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             <div className="flex flex-col items-center">
           <motion.h1
@@ -89,15 +89,13 @@ export const Home = () => {
                 </motion.span>
               </motion.h1>
 
-              <motion.p
-                variants={item}
-                className="mt-6 max-w-3xl text-base text-muted-foreground sm:text-lg md:text-xl lg:text-2xl"
+              <p
+                className="mt-6 max-w-3xl text-base text-muted-foreground/60 sm:text-lg md:text-xl lg:text-2xl"
               >
                 AWS Cloud &amp; AI Engineer &bull; Serverless &amp; Bedrock &bull; Full-Stack Developer
-              </motion.p>
+              </p>
 
-              <motion.div
-                variants={item}
+              <div
                 className="mt-8 flex flex-wrap justify-center gap-4"
               >
                 <Link
@@ -112,7 +110,7 @@ export const Home = () => {
                 >
                   View Projects
                 </Link>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -161,8 +159,8 @@ export const Home = () => {
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 className="rounded-xl border border-border bg-card p-6 text-center shadow-sm transition-shadow hover:shadow-md"
               >
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                  <hl.icon size={20} className="text-primary" />
+                <div className={`mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl ${hl.color}`}>
+                  <hl.icon size={24} />
                 </div>
                 <h3 className="mb-2 font-semibold text-card-foreground">{hl.label}</h3>
                 <p className="text-sm text-muted-foreground">{hl.description}</p>
