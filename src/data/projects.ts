@@ -517,6 +517,56 @@ export const projects: Project[] = [
     },
     featured: true,
   },
+  {
+    id: "ai-rag-support-chatbot",
+    title: "AI RAG Support Chatbot",
+    description:
+      "A support chatbot grounded in your documents — zero hallucination by design. Upload .md, .txt, or .pdf files, ask questions, and get citation-backed answers. Corrects false premises and gracefully refuses out-of-scope questions.",
+    longDescription:
+      "A Retrieval-Augmented Generation (RAG) support chatbot that only answers from uploaded documents — grounded, citation-backed, and honest about what it doesn't know.\n\n" +
+      "✦ Features\n" +
+      "• Document Ingestion — upload .md, .txt, and .pdf files through the UI, auto-chunked and embedded into Pinecone\n" +
+      "• Grounded Answers — every response is sourced from your knowledge base, with inline [n] citation markers linking back to source filenames\n" +
+      "• Smart Entity Resolution — vague queries like \"who is X\" correctly resolve to full entities described in documents\n" +
+      "• False-Premise Correction — questions based on incorrect assumptions (\"Is he 33?\") are corrected using real facts from context\n" +
+      "• Graceful Refusals — out-of-scope questions get an honest natural-language refusal instead of a hallucinated answer\n" +
+      "• Small-Talk Awareness — greetings and casual messages handled conversationally, not miscategorized as refusals\n" +
+      "• Visual Refusal Styling — unanswerable responses render with distinct UI styling, separate from grounded answers\n" +
+      "• Document Management — upload, list, and delete source documents directly from the UI\n" +
+      "• Zero Hallucination by Design — refuses to invent facts like phone numbers or subjective opinions not in the source material\n\n" +
+      "✦ Architecture\n" +
+      "• Frontend: React + Vite — chat UI with document management tabs\n" +
+      "• Backend: Node.js + Express — REST API for chat and document CRUD\n" +
+      "• Vector Database: Pinecone — semantic search with top-k=3 retrieval and 0.05 circuit-breaker floor\n" +
+      "• LLM: DeepSeek — grounded answer generation with system prompt for false-premise correction\n" +
+      "• Ingestion: pdf-parse for PDFs, raw read for .md/.txt, chunked and embedded before upsert\n" +
+      "• Relevance Gate: lightweight similarity-score circuit breaker — rejects only when nothing at all is related\n" +
+      "• Citation Engine: parses inline [1], [2] markers from LLM response and maps them back to source filenames\n" +
+      "• Refusal Detector: post-hoc pattern check to flag natural-language refusals for distinct UI styling\n" +
+      "• Greeting Detector: early carve-out prevents casual small talk from being miscategorized as a refusal\n\n" +
+      "✦ Key Technical Decisions\n" +
+      "• Why a soft relevance gate instead of a hard cutoff? A fixed similarity threshold blocked legitimate questions with weak lexical overlap. The gate now acts only as a near-zero circuit breaker, delegating the \"is this answerable\" decision to the LLM.\n" +
+      "• Why detect refusals via post-hoc text check? Earlier iterations used sentinel tokens that leaked into visible answers. Refusals are now natural language, with a regex check on the response driving UI styling.\n" +
+      "• Why pdf-parse over heavier libraries? Use case only requires plain text extraction for chunking — not layout preservation. Keeps the dependency footprint small.\n" +
+      "• Why explicitly instruct the LLM to correct false premises? A generic RAG setup answers yes/no literally. Explicit instructions produce materially more useful answers (e.g., \"No, he is 21, not 33\").\n\n" +
+      "Full documentation, architecture diagrams, screenshots, and setup guide available on GitHub.",
+    tags: [
+      "Node.js",
+      "Express",
+      "React",
+      "Vite",
+      "Pinecone",
+      "DeepSeek",
+      "RAG",
+      "Embeddings",
+    ],
+    category: "AI/Bedrock",
+    image: "/images/projects/ai-rag-chatbot.webp",
+    links: {
+      source: "https://github.com/daganoo/ai-rag-support-chatbot",
+    },
+    featured: false,
+  },
 ];
 
 export const projectCategories = [
