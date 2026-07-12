@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Briefcase, GraduationCap } from "lucide-react";
 import { education, work } from "../data/experience";
+import { UpworkIcon } from "../components/icons/UpworkIcon";
 import type { Experience as ExperienceType } from "../types";
 
 const cardVariants = {
@@ -48,6 +49,17 @@ const TimelineCard = ({ exp, i }: { exp: ExperienceType; i: number }) => {
         <p className="mb-2 text-sm text-muted-foreground">
           {exp.organization}{exp.location ? ` · ${exp.location}` : ""}
         </p>
+        {exp.link && (
+          <a
+            href={exp.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mb-3 inline-flex items-center gap-1.5 rounded-md bg-[#14a800] px-3 py-1 text-sm font-medium text-white transition-colors hover:bg-[#14a800]/90"
+          >
+            <UpworkIcon size={14} />
+            Upwork
+          </a>
+        )}
         <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
           {exp.description}
         </p>

@@ -1,5 +1,6 @@
 import { Mail, FileText } from "lucide-react";
 import { GithubIcon } from "./icons/GithubIcon";
+import { UpworkIcon } from "./icons/UpworkIcon";
 
 const LinkedinIcon = ({ size }: { size: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" role="img">
@@ -8,6 +9,7 @@ const LinkedinIcon = ({ size }: { size: number }) => (
 );
 
 const socialLinks = [
+  { icon: UpworkIcon, href: "https://www.upwork.com/freelancers/~01205234478041cf4f", label: "Upwork" },
   { icon: GithubIcon, href: "https://github.com/daganoo", label: "GitHub" },
   { icon: LinkedinIcon, href: "https://www.linkedin.com/in/marouane-dagana-418832264/", label: "LinkedIn" },
   { icon: Mail, href: "mailto:marwan.dagana@gmail.com", label: "Email" },

@@ -57,7 +57,8 @@ export const work: Experience[] = [
     title: "Freelance Full-Stack & AI Developer",
     organization: "Self-employed",
     location: "Remote",
-    startDate: "2023",
+    link: "https://www.upwork.com/freelancers/~01205234478041cf4f",
+    startDate: "2024",
     endDate: undefined,
     description:
       "Independent developer delivering cloud infrastructure, AI solutions, and full-stack applications for clients worldwide.",
@@ -66,7 +67,7 @@ export const work: Experience[] = [
       "Developed AI-powered chatbot using AWS Bedrock and RAG — answers questions from company documents",
       "Deployed full-stack e-commerce platform on AWS handling 100k+ monthly users with under 1s load times",
       "Built serverless contact form running at $0.50/month using Lambda, DynamoDB, and SES",
-      "Automated business workflows using n8n integrated with AWS services",
+      "Automated business workflows for Upwork clients using n8n integrated with AWS services",
     ],
     type: "work",
   },

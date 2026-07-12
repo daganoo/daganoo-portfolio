@@ -30,6 +30,7 @@ export interface Experience {
   title: string;
   organization: string;
   location: string;
+  link?: string;
   startDate: string;
   endDate?: string;
   description: string;

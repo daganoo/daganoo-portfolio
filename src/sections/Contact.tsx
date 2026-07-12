@@ -1,6 +1,7 @@
 import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { Mail, MapPin, Send, Loader2 } from "lucide-react";
+import { UpworkIcon } from "../components/icons/UpworkIcon";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mzdwaejr";
 
@@ -86,6 +87,29 @@ export const Contact = () => {
                 <p className="text-sm text-muted-foreground/70">
                   Available for remote work worldwide
                 </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
+            <div className="flex items-start gap-4">
+              <div className="rounded-lg bg-green-500/10 p-3 text-green-500">
+                <UpworkIcon size={24} />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-card-foreground">Freelance Collaboration</h3>
+                <p className="mb-3 text-sm text-muted-foreground">
+                  Open to new projects and collaborations on Upwork
+                </p>
+                <a
+                  href="https://www.upwork.com/freelancers/~01205234478041cf4f"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white transition-all hover:bg-green-500"
+                >
+                  <UpworkIcon size={14} />
+                  Hire me on Upwork
+                </a>
               </div>
             </div>
           </div>
