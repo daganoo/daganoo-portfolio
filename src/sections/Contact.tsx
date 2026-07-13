@@ -1,18 +1,62 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useRef } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Send, Loader2 } from "lucide-react";
+import { Mail, MapPin, Send, ShieldAlert, Loader2 } from "lucide-react";
 import { UpworkIcon } from "../components/icons/UpworkIcon";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mzdwaejr";
+const VALIDATE = {
+  nameMax: 100,
+  messageMax: 5000,
+  rateLimitMs: 5000,
+};
+
+const sanitize = (value: string, max: number) => value.trim().slice(0, max);
 
 export const Contact = () => {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "rate_limited">("idle");
+  const lastSubmitRef = useRef(0);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("loading");
     const form = e.currentTarget;
-    const data = new FormData(form);
+    const formData = new FormData(form);
+
+    const honeypot = formData.get("_website") as string;
+    if (honeypot) {
+      setStatus("success");
+      form.reset();
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastSubmitRef.current < VALIDATE.rateLimitMs) {
+      setStatus("rate_limited");
+      return;
+    }
+    lastSubmitRef.current = now;
+
+    const name = sanitize(formData.get("name") as string, VALIDATE.nameMax);
+    const email = (formData.get("email") as string).trim();
+    const message = sanitize(formData.get("message") as string, VALIDATE.messageMax);
+
+    const isSuspicious =
+      name.length === 0 ||
+      email.length === 0 ||
+      message.length === 0 ||
+      message.includes("<script") ||
+      message.includes("href=") ||
+      /https?:\/\/[^\s]+/.test(message);
+
+    if (isSuspicious) {
+      setStatus("error");
+      return;
+    }
+
+    const data = new FormData();
+    data.append("name", name);
+    data.append("email", email);
+    data.append("message", message);
 
     try {
       const res = await fetch(FORMSPREE_ENDPOINT, {
@@ -131,6 +175,22 @@ export const Contact = () => {
                 Thank you for reaching out. I&apos;ll get back to you soon.
               </p>
             </div>
+          ) : status === "rate_limited" ? (
+            <div className="flex flex-col items-center rounded-xl border border-border bg-card p-8 text-center shadow-sm">
+              <div className="mb-4 rounded-full bg-amber-500/10 p-4 text-amber-500">
+                <ShieldAlert size={32} />
+              </div>
+              <h3 className="mb-2 text-xl font-semibold text-card-foreground">Too many submissions</h3>
+              <p className="mb-4 text-muted-foreground">
+                Please wait a few seconds before sending another message.
+              </p>
+              <button
+                onClick={() => setStatus("idle")}
+                className="text-sm text-primary transition-colors hover:text-primary/80"
+              >
+                Try again
+              </button>
+            </div>
           ) : status === "error" ? (
             <div className="flex flex-col items-center rounded-xl border border-border bg-card p-8 text-center shadow-sm">
               <div className="mb-4 rounded-full bg-red-500/10 p-4 text-red-500">
@@ -149,6 +209,10 @@ export const Contact = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-border bg-card p-6 shadow-sm">
+              <div className="absolute opacity-0 pointer-events-none" aria-hidden="true">
+                <label htmlFor="_website">Website</label>
+                <input type="text" id="_website" name="_website" tabIndex={-1} autoComplete="off" />
+              </div>
               <div>
                 <label htmlFor="name" className="mb-2 block text-sm font-medium">
                   Name
@@ -158,6 +222,7 @@ export const Contact = () => {
                   name="name"
                   type="text"
                   required
+                  maxLength={VALIDATE.nameMax}
                   className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring"
                   placeholder="Your name"
                 />
@@ -172,6 +237,7 @@ export const Contact = () => {
                   name="email"
                   type="email"
                   required
+                  maxLength={254}
                   className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring"
                   placeholder="your@email.com"
                 />
@@ -186,6 +252,7 @@ export const Contact = () => {
                   name="message"
                   required
                   rows={4}
+                  maxLength={VALIDATE.messageMax}
                   className="w-full resize-none rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring"
                   placeholder="Tell me about your project..."
                 />

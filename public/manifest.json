@@ -1,15 +1,22 @@
 {
   "short_name": "Dagana",
-  "name": "Marouane Dagana - Portfolio",
+  "name": "Marouane Dagana - AWS Cloud &amp; AI Engineer | Portfolio",
+  "description": "Portfolio of Marouane Dagana, AWS Cloud &amp; AI Engineer specializing in serverless, Bedrock, and automation.",
   "icons": [
     {
       "src": "favicon.png",
       "type": "image/png",
       "sizes": "192x192"
+    },
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#0a0a0b",
-  "background_color": "#0a0a0b"
+  "background_color": "#0a0a0b",
+  "categories": ["portfolio", "technology", "development"]
 }
