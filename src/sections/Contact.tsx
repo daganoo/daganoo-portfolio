@@ -102,6 +102,34 @@ export const Contact = () => {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="space-y-6"
         >
+          <div className="rounded-xl border border-green-600/20 bg-card p-6 shadow-sm relative dark:border-green-500/20">
+            <span className="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-full border border-green-600/20 bg-green-600/10 px-2.5 py-1 text-[11px] font-medium text-green-600 dark:border-green-500/20 dark:bg-green-500/10 dark:text-green-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.5)]" />
+              Available
+            </span>
+            <div className="flex items-start gap-4">
+              <div className="rounded-lg bg-green-500/10 p-3 text-green-500">
+                <UpworkIcon size={24} />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-card-foreground">Freelance Collaboration</h3>
+                <p className="mb-3 text-sm text-muted-foreground">
+                  Open to new projects and collaborations on Upwork
+                </p>
+                <a
+                  href="https://www.upwork.com/freelancers/~01205234478041cf4f"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-1.5 text-sm text-green-600 transition-colors hover:text-green-500 dark:text-green-400 dark:hover:text-green-300"
+                >
+                  <UpworkIcon size={14} />
+                  Hire me on Upwork
+                  <span className="ml-0.5 inline-block animate-slide-right group-hover:scale-125 transition-transform">&rarr;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
           <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
             <div className="flex items-start gap-4">
               <div className="rounded-lg bg-emerald-500/10 p-3 text-emerald-500">
@@ -112,9 +140,9 @@ export const Contact = () => {
                 <p className="text-sm text-muted-foreground">marwan.dagana@gmail.com</p>
                 <a
                   href="mailto:marwan.dagana@gmail.com"
-                  className="text-sm text-emerald-500 transition-colors hover:text-emerald-400"
+                  className="group text-sm text-emerald-500 transition-colors hover:text-emerald-400"
                 >
-                  Send a message &rarr;
+                  Send a message <span className="inline-block animate-slide-right group-hover:scale-125 transition-transform">&rarr;</span>
                 </a>
               </div>
             </div>
@@ -131,29 +159,6 @@ export const Contact = () => {
                 <p className="text-sm text-muted-foreground/70">
                   Available for remote work worldwide
                 </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
-            <div className="flex items-start gap-4">
-              <div className="rounded-lg bg-green-500/10 p-3 text-green-500">
-                <UpworkIcon size={24} />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-card-foreground">Freelance Collaboration</h3>
-                <p className="mb-3 text-sm text-muted-foreground">
-                  Open to new projects and collaborations on Upwork
-                </p>
-                <a
-                  href="https://www.upwork.com/freelancers/~01205234478041cf4f"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white transition-all hover:bg-green-500"
-                >
-                  <UpworkIcon size={14} />
-                  Hire me on Upwork
-                </a>
               </div>
             </div>
           </div>

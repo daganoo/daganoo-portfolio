@@ -2,6 +2,32 @@ import { Project } from "../types";
 
 export const projects: Project[] = [
   {
+    id: "n8n-doc-processor",
+    title: "n8n Document Intelligence — AI-Powered Invoice & Contract Processor",
+    description:
+      "End-to-end document processing pipeline that reads PDFs, extracts key details with GPT-4o-mini, routes data to spreadsheets, and sends smart alerts — all in under 30 seconds. Zero manual data entry.",
+    longDescription:
+      "An n8n-powered document intelligence system that processes invoices and contracts in under 30 seconds — no manual copy-pasting, no missed due dates, no expensive surprises.\n\n" +
+      "✦ How It Works\n" +
+      "• A PDF lands in Google Drive → the system wakes up instantly\n" +
+      "• GPT-4o-mini reads the document and extracts every key detail: vendor, amount, due date, document type\n" +
+      "• Data is routed to the correct Google Sheets spreadsheet automatically\n" +
+      "• Smart checks run: Is the amount over $10,000? Is payment due in 7 days or less?\n" +
+      "• If yes to either → an alert goes out immediately via Gmail\n" +
+      "• Finance team notified. Zero manual review.\n\n" +
+      "✦ Stack\n" +
+      "n8n · GPT-4o-mini · Google Drive · Google Sheets · Gmail\n\n" +
+      "Most finance and legal teams are still opening PDFs one by one, typing data into spreadsheets, and hoping nothing slips through. One missed auto-renewal. One overdue invoice. One overlooked $50k contract clause. That's the real cost of manual document processing.\n\n" +
+      "Built for a client. Now seeing demand from legal firms, real estate teams, and finance departments everywhere.",
+    tags: ["n8n", "GPT-4o-mini", "Google Drive", "Google Sheets", "Gmail", "Automation", "AI"],
+    category: "AI/RAG/Automation",
+    image: "/images/projects/n8n-doc-processor.webp",
+    links: {
+      linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7462920247759757313/",
+    },
+    featured: false,
+  },
+  {
     id: "ai-content-generator",
     title: "ContentAI — Serverless AI Content Generator",
     description:
@@ -42,7 +68,7 @@ export const projects: Project[] = [
       "React",
       "TypeScript",
     ],
-    category: "AI/Bedrock",
+    category: "AI/RAG/Automation",
     image: "/images/projects/ai-content-generator.webp",
     links: {
       live: "https://d6nkyw5z7hqo6.cloudfront.net",
@@ -560,7 +586,7 @@ export const projects: Project[] = [
       "RAG",
       "Embeddings",
     ],
-    category: "AI/Bedrock",
+    category: "AI/RAG/Automation",
     image: "/images/projects/ai-rag-chatbot.webp",
     links: {
       source: "https://github.com/daganoo/ai-rag-support-chatbot",
@@ -573,7 +599,7 @@ export const projectCategories = [
   "All",
   "AWS Cloud",
   "AWS Cloud + DevOps",
-  "AI/Bedrock",
+  "AI/RAG/Automation",
   "Full-Stack React+Node",
   "React Frontend",
 ] as const;

@@ -9,6 +9,7 @@ export interface Project {
   links: {
     live?: string;
     source?: string;
+    linkedin?: string;
   };
   featured: boolean;
 }
@@ -16,7 +17,7 @@ export interface Project {
 export type ProjectCategory =
   | "AWS Cloud"
   | "AWS Cloud + DevOps"
-  | "AI/Bedrock"
+  | "AI/RAG/Automation"
   | "Full-Stack React+Node"
   | "React Frontend";
 
@@ -42,4 +43,14 @@ export interface SocialLink {
   name: string;
   url: string;
   icon: string;
+}
+
+export interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  content: string;
+  rating: number;
+  platform: "upwork" | "linkedin" | "direct";
+  avatar?: string;
 }

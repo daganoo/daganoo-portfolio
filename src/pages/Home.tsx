@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight, Code2, Cloud, Sparkles, Zap, FileText } from "lucide-react";
 import { projects } from "../data/projects";
 import { skillGroups } from "../data/skills";
+import { Testimonials } from "../sections/Testimonials";
 import { item } from "../utils/animations";
 
 const featuredProjects = projects.filter((p) => p.featured).reverse();
@@ -307,6 +308,8 @@ export const Home = () => {
           </motion.div>
         </div>
       </section>
+
+      <Testimonials />
     </>
   );
 };

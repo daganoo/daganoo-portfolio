@@ -44,6 +44,15 @@ module.exports = {
         sans: ["Inter", "system-ui", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
+      keyframes: {
+        "slide-right": {
+          "0%, 100%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(4px)" },
+        },
+      },
+      animation: {
+        "slide-right": "slide-right 1.2s ease-in-out infinite",
+      },
     },
   },
   plugins: [],
