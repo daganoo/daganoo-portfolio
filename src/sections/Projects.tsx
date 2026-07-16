@@ -18,7 +18,7 @@ export const Projects = () => {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory | "All">("All");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const gridRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const catFiltered = activeCategory === "All"
     ? [...projects].reverse()
@@ -52,11 +52,19 @@ export const Projects = () => {
   };
 
   useEffect(() => {
-    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const raf = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (sectionRef.current) {
+          const y = sectionRef.current.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: "auto" });
+        }
+      });
+    });
+    return () => cancelAnimationFrame(raf);
   }, [currentPage]);
 
   return (
-    <section className="relative container-page mx-auto py-24">
+    <section ref={sectionRef} className="relative container-page mx-auto py-24">
       <div className="pointer-events-none absolute -right-28 top-1/3 hidden h-[550px] w-[550px] rounded-full opacity-20 blur-[120px] dark:block" style={{ background: "radial-gradient(circle at center, #7c3aed 0%, transparent 65%)" }} />
       <div className="relative z-[1]">
       <motion.div
@@ -102,7 +110,7 @@ export const Projects = () => {
         </div>
       </div>
 
-      <div ref={gridRef} className="grid gap-8 md:grid-cols-2">
+      <div className="grid gap-8 md:grid-cols-2">
         <AnimatePresence mode="wait">
           {paginated.length === 0 ? (
             <motion.p
