@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Search, ChevronLeft, ChevronRight } from "lucide-react";
@@ -19,6 +19,7 @@ export const Projects = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const sectionRef = useRef<HTMLElement>(null);
+  const shouldScrollRef = useRef(false);
 
   const catFiltered = activeCategory === "All"
     ? [...projects].reverse()
@@ -51,17 +52,17 @@ export const Projects = () => {
     setCurrentPage(1);
   };
 
-  useEffect(() => {
-    const raf = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        if (sectionRef.current) {
-          const y = sectionRef.current.getBoundingClientRect().top + window.scrollY - 80;
-          window.scrollTo({ top: y, behavior: "auto" });
-        }
-      });
-    });
-    return () => cancelAnimationFrame(raf);
-  }, [currentPage]);
+  const scrollToSection = useCallback(() => {
+    if (sectionRef.current) {
+      const y = sectionRef.current.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "instant" as ScrollBehavior });
+    }
+  }, []);
+
+  const handlePageChange = useCallback((page: number) => {
+    shouldScrollRef.current = true;
+    setCurrentPage(page);
+  }, []);
 
   return (
     <section ref={sectionRef} className="relative container-page mx-auto py-24">
@@ -111,7 +112,12 @@ export const Projects = () => {
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" onExitComplete={() => {
+          if (shouldScrollRef.current) {
+            shouldScrollRef.current = false;
+            scrollToSection();
+          }
+        }}>
           {paginated.length === 0 ? (
             <motion.p
               key="empty"
@@ -215,7 +221,7 @@ export const Projects = () => {
       {totalPages > 1 && (
         <div className="mt-12 flex items-center justify-center gap-2">
           <button
-            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
             className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed"
           >
@@ -224,7 +230,7 @@ export const Projects = () => {
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
               key={page}
-              onClick={() => setCurrentPage(page)}
+              onClick={() => handlePageChange(page)}
               className={`inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium transition-colors ${
                 page === currentPage
                   ? "bg-primary text-primary-foreground"
@@ -235,7 +241,7 @@ export const Projects = () => {
             </button>
           ))}
           <button
-            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
             className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed"
           >
