@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Search, ChevronLeft, ChevronRight } from "lucide-react";
@@ -18,6 +18,7 @@ export const Projects = () => {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory | "All">("All");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const catFiltered = activeCategory === "All"
     ? [...projects].reverse()
@@ -49,6 +50,10 @@ export const Projects = () => {
     setSearchTerm(value);
     setCurrentPage(1);
   };
+
+  useEffect(() => {
+    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [currentPage]);
 
   return (
     <section className="relative container-page mx-auto py-24">
@@ -97,7 +102,7 @@ export const Projects = () => {
         </div>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2">
+      <div ref={gridRef} className="grid gap-8 md:grid-cols-2">
         <AnimatePresence mode="wait">
           {paginated.length === 0 ? (
             <motion.p
