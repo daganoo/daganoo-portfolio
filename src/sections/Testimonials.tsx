@@ -53,9 +53,11 @@ export const Testimonials = () => {
                     <Star
                       key={starIdx}
                       size={16}
-                      className="fill-amber-400 text-amber-400"
+                      className="fill-amber-400 text-amber-400 [&_svg]:italic"
+                      strokeWidth={1.5}
                     />
                   ))}
+                  <span className="ml-1.5 text-sm font-medium text-amber-500">5.0</span>
                 </div>
 
                 <blockquote className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
@@ -67,13 +69,16 @@ export const Testimonials = () => {
                     <p className="text-sm font-semibold text-card-foreground">{t.name}</p>
                     <p className="text-xs text-muted-foreground">{t.role}</p>
                   </div>
-                  <div
-                    className="flex items-center gap-1.5 rounded-md border border-border/60 px-2.5 py-1 text-xs text-muted-foreground"
+                  <a
+                    href="https://www.upwork.com/freelancers/~01205234478041cf4f"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 rounded-md border border-border/60 px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:bg-border/30"
                     title={platformIcon[t.platform].label}
                   >
                     <PlatformIcon size={14} />
                     {platformIcon[t.platform].label}
-                  </div>
+                  </a>
                 </div>
               </motion.div>
             );

@@ -3,10 +3,10 @@ import type { Testimonial } from "../types";
 export const testimonials: Testimonial[] = [
   {
     id: "1",
-    name: "Alex Chen",
-    role: "Founder, TechFlow Inc.",
+    name: "Abraham",
+    role: "Upwork Client",
     content:
-      "Marouane built our entire CI/CD dashboard on AWS. The serverless architecture he designed cut our deployment times by 70%. Highly professional and delivered ahead of schedule.",
+      "Marouane was professional, responsive, and easy to work with throughout the project. He communicated clearly, understood the requirements, and delivered a clean, modern website. He was solution-oriented, paid attention to detail.",
     rating: 5,
     platform: "upwork",
   },
