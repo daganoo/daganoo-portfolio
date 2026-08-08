@@ -73,15 +73,13 @@ export const Navbar = () => {
               </Link>
             );
           })}
-          <a
-            href="/resume.html"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => window.open("/resume.pdf", "_blank")}
             aria-label="Open resume"
             className="rounded-md p-2 text-primary transition-colors hover:bg-primary/10"
           >
             <FileText size={18} />
-          </a>
+          </button>
           <button
             onClick={cycle}
             aria-label="Cycle theme"
@@ -162,15 +160,13 @@ export const Navbar = () => {
               <p className="mb-3 mt-8 px-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                 Resume
               </p>
-              <a
-                href="/resume.html"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => window.open("/resume.pdf", "_blank")}
                 className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-primary transition-colors hover:bg-primary/10"
               >
                 <FileText size={20} className="shrink-0" />
                 <span className="text-sm font-medium">View Resume</span>
-              </a>
+              </button>
 
               <p className="mb-3 mt-8 px-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                 Preferences

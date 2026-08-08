@@ -25,15 +25,13 @@ export const Footer = () => {
           &copy; {currentYear} Marouane Dagana. All rights reserved.
         </p>
         <div className="flex items-center gap-4">
-          <a
-            href="/resume.html"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => window.open("/resume.pdf", "_blank")}
             className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             <FileText size={14} />
             Resume
-          </a>
+          </button>
           {socialLinks.map(({ icon: Icon, href, label }) => (
             <a
               key={label}

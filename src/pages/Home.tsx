@@ -202,15 +202,13 @@ export const Home = () => {
               Learn More About Me
               <ArrowRight size={16} className="ml-2" />
             </Link>
-            <a
-              href="/resume.html"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => window.open("/resume.pdf", "_blank")}
               className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
             >
-              <FileText size={16} />
+              <FileText size={18} />
               View Resume
-            </a>
+            </button>
           </motion.div>
         </div>
       </section>
