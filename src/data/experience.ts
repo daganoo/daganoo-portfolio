@@ -3,7 +3,7 @@ import { Experience } from "../types";
 export const education: Experience[] = [
   {
     id: "masters-se",
-    title: "Master's in Software Engineering",
+    title: "Master's in Software Engineering — AI & Cloud Specialization",
     organization: "Ibn Zohr University",
     location: "Agadir, Morocco",
     startDate: "2025",
@@ -45,7 +45,7 @@ export const education: Experience[] = [
     highlights: [
       "Studied web development, mobile apps, game development, and Python",
       "First hands-on experience building real applications from scratch",
-      "Foundation for 4+ years of continuous development work",
+      "Covered databases, UML architecture, networking, and Linux fundamentals",
     ],
     type: "education",
   },
