@@ -100,9 +100,9 @@ export const Hero = () => {
           variants={item}
           className="mb-8 text-xl leading-relaxed text-gray-500 dark:text-gray-400 sm:text-2xl"
         >
-          AWS Cloud &amp; AI Engineer crafting serverless solutions
+          Full-Stack AI Dev &bull; AWS Cloud &bull; RAG, LLM &amp; Chatbots
           <br />
-          with Amazon Bedrock, Lambda, and full-stack React applications.
+          React, Node.js, Python
         </motion.p>
 
         <motion.div

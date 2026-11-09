@@ -76,7 +76,7 @@ export const Contact = () => {
   };
 
   return (
-    <section className="relative container-page mx-auto py-24">
+    <section className="relative container-page mx-auto overflow-hidden py-16 sm:py-24">
       <div className="pointer-events-none absolute -left-28 top-1/4 hidden h-[500px] w-[500px] rounded-full opacity-25 blur-[110px] dark:block" style={{ background: "radial-gradient(circle at center, #7c3aed 0%, transparent 70%)" }} />
       <div className="pointer-events-none absolute -right-20 top-1/2 hidden h-[400px] w-[400px] rounded-full opacity-20 blur-[100px] dark:block" style={{ background: "radial-gradient(circle at center, #1e3a5f 0%, transparent 70%)" }} />
       <div className="relative z-[1]">
@@ -94,7 +94,7 @@ export const Contact = () => {
         </p>
       </motion.div>
 
-      <div className="mt-12 grid gap-12 lg:grid-cols-2">
+      <div className="mt-8 grid gap-8 sm:gap-12 lg:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -112,7 +112,7 @@ export const Contact = () => {
                 <UpworkIcon size={24} />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-card-foreground">Freelance Collaboration</h3>
+                <h3 className="font-semibold text-card-foreground pr-20 sm:pr-0">Freelance Collaboration</h3>
                 <p className="mb-3 text-sm text-muted-foreground">
                   Open to new projects and collaborations on Upwork
                 </p>

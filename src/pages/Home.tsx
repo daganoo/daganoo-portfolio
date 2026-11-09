@@ -93,7 +93,7 @@ export const Home = () => {
               <p
                 className="mt-6 max-w-3xl text-base text-muted-foreground/60 sm:text-lg md:text-xl lg:text-2xl"
               >
-                AWS Cloud &amp; AI Engineer &bull; Serverless &amp; Bedrock &bull; Full-Stack Developer
+                Full-Stack AI Dev &bull; AWS Cloud &bull; RAG, LLM &amp; Chatbots (React, Node, Python)
               </p>
 
               <div
@@ -144,9 +144,7 @@ export const Home = () => {
               About Me
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              I&apos;m a Software Engineering Master&apos;s student at Ibn Zohr University in Agadir and
-              a freelance AWS &amp; AI developer. I build cloud-native applications, automate workflows,
-              and craft AI-powered solutions for startups and businesses.
+              I&apos;m a Full-Stack Developer and AWS/AI Engineer with 4+ years of experience. I build AI-powered chatbots, RAG systems, automation workflows, and serverless backends on AWS Bedrock and Lambda.
             </p>
           </motion.div>
 
