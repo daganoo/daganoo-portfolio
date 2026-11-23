@@ -27,7 +27,7 @@ export const upworkProfile: UpworkProfile = {
   name: "Marouane D.",
   avatar: "/images/avatar.webp",
   location: "Marrakesh, Morocco",
-  timezone: "Africa/Casablanca",
+  timezone: "UTC",
   badges: [
     { type: "jobSuccess", label: "100% Job Success" },
     { type: "topRated", label: "Top Rated" },
