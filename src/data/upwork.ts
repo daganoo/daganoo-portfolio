@@ -3,12 +3,19 @@ export interface UpworkStat {
   label: string;
 }
 
+export type UpworkBadgeType = "jobSuccess" | "topRated";
+
+export interface UpworkBadge {
+  type: UpworkBadgeType;
+  label: string;
+}
+
 export interface UpworkProfile {
   name: string;
   avatar: string;
   location: string;
   timezone: string;
-  badges: string[];
+  badges: UpworkBadge[];
   stats: UpworkStat[];
   title: string;
   rate: string;
@@ -18,13 +25,16 @@ export interface UpworkProfile {
 
 export const upworkProfile: UpworkProfile = {
   name: "Marouane D.",
-  avatar: "/favicon-192.png",
+  avatar: "/images/avatar.webp",
   location: "Marrakesh, Morocco",
-  timezone: "UTC",
-  badges: ["100% Job Success", "Rising Talent"],
+  timezone: "Africa/Casablanca",
+  badges: [
+    { type: "jobSuccess", label: "100% Job Success" },
+    { type: "topRated", label: "Top Rated" },
+  ],
   stats: [
     { value: "$1K+", label: "Total earnings" },
-    { value: "3", label: "Total jobs" },
+    { value: "4", label: "Total jobs" },
     { value: "65", label: "Total hours" },
   ],
   title: "Full-Stack AI Dev | AWS, RAG, LLM & Chatbots (React, Node, Python)",

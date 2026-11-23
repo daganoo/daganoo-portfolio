@@ -1,7 +1,8 @@
 import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { BadgeCheck, Code2, Cloud, Crown, FileText, MapPin, Sparkles, Zap } from "lucide-react";
-import { RisingTalentIcon } from "../components/icons/RisingTalentIcon";
+import { BadgeCheck, Code2, Cloud, FileText, MapPin, Sparkles, Zap } from "lucide-react";
+import { JobSuccessIcon } from "../components/icons/JobSuccessIcon";
+import { TopRatedIcon } from "../components/icons/TopRatedIcon";
 import { UpworkIcon } from "../components/icons/UpworkIcon";
 import { upworkProfile } from "../data/upwork";
 
@@ -163,35 +164,33 @@ export const About = () => {
         transition={{ delay: 0.4, duration: 0.5 }}
         className="mt-8"
       >
-        <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-          <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-start sm:justify-between">
-            <div className="flex items-start gap-4">
+        <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+          <div className="flex flex-col gap-5 p-6 sm:flex-row sm:items-start sm:justify-between md:p-8">
+            <div className="flex items-start gap-4 md:gap-6">
               <div className="relative shrink-0">
                 <img
                   src={upworkProfile.avatar}
                   alt={upworkProfile.name}
-                  className="h-16 w-16 rounded-full object-cover"
+                  className="h-16 w-16 rounded-full object-cover md:h-20 md:w-20"
                 />
-                <span className="absolute left-0 top-0 h-3.5 w-3.5 rounded-full border-2 border-card bg-green-500" />
+                <span className="absolute left-0.5 top-0.5 h-3.5 w-3.5 rounded-full border-2 border-card bg-green-500" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-xl font-semibold text-card-foreground">{upworkProfile.name}</h3>
-                  <BadgeCheck size={18} className="text-blue-500" />
+                  <h3 className="text-2xl font-semibold text-card-foreground md:text-3xl">{upworkProfile.name}</h3>
+                  <BadgeCheck size={22} className="fill-blue-600 text-card" />
                 </div>
-                <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
-                  <MapPin size={14} />
+                <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground md:text-base">
+                  <MapPin size={16} />
                   {upworkProfile.location} – {localTime} local time
                 </p>
-                <div className="mt-2 flex flex-wrap items-center gap-4 text-sm font-medium text-card-foreground">
-                  <span className="inline-flex items-center gap-1.5">
-                    <Crown size={16} className="text-blue-500" />
-                    {upworkProfile.badges[0]}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <RisingTalentIcon size={20} />
-                    {upworkProfile.badges[1]}
-                  </span>
+                <div className="mt-3 flex flex-wrap items-center gap-5 text-sm font-medium text-card-foreground md:text-base">
+                  {upworkProfile.badges.map((badge) => (
+                    <span key={badge.type} className="inline-flex items-center gap-2">
+                      {badge.type === "jobSuccess" ? <JobSuccessIcon size={28} /> : <TopRatedIcon size={26} />}
+                      {badge.label}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -199,7 +198,7 @@ export const About = () => {
               href={upworkProfile.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-green-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-700"
+              className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-green-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-green-700"
             >
               <UpworkIcon size={14} />
               {upworkProfile.cta}
@@ -207,17 +206,17 @@ export const About = () => {
             </a>
           </div>
           <div className="grid border-t border-border md:grid-cols-[auto_1fr]">
-            <div className="flex gap-8 border-b border-border p-5 md:border-b-0 md:border-r">
+            <div className="flex gap-10 border-b border-border p-6 md:border-b-0 md:border-r md:p-8">
               {upworkProfile.stats.map((stat) => (
                 <div key={stat.label}>
-                  <p className="text-xl font-semibold text-card-foreground">{stat.value}</p>
-                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                  <p className="text-2xl font-semibold text-card-foreground">{stat.value}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{stat.label}</p>
                 </div>
               ))}
             </div>
-            <div className="flex items-center justify-between gap-4 p-5">
-              <p className="font-semibold text-card-foreground">{upworkProfile.title}</p>
-              <p className="shrink-0 font-semibold text-card-foreground">{upworkProfile.rate}</p>
+            <div className="flex flex-col gap-3 p-6 sm:flex-row sm:items-center sm:justify-between md:p-8">
+              <p className="text-lg font-semibold text-card-foreground md:text-xl">{upworkProfile.title}</p>
+              <p className="shrink-0 text-lg font-semibold text-card-foreground md:text-xl">{upworkProfile.rate}</p>
             </div>
           </div>
         </div>
