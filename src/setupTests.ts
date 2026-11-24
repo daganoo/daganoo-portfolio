@@ -15,15 +15,15 @@ window.matchMedia =
     } as MediaQueryList;
   };
 
+window.scrollTo = (() => {}) as typeof window.scrollTo;
+
 global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
   observe() {}
   unobserve() {}
   disconnect() {}
 } as unknown as typeof IntersectionObserver;
 
 global.ResizeObserver = class ResizeObserver {
-  constructor() {}
   observe() {}
   unobserve() {}
   disconnect() {}

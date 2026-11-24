@@ -4,7 +4,7 @@ import { Experience } from "../sections/Experience";
 
 export const AboutPage = () => {
   return (
-    <div className="bg-background">
+    <div>
       <About />
       <Skills />
       <Experience />

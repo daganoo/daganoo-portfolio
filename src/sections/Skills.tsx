@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Code, Database, Cloud, Sparkles, Wrench, Monitor, Globe } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { skillGroups } from "../data/skills";
@@ -26,13 +26,12 @@ const accentColors: Record<string, string> = {
 export const Skills = () => {
   return (
     <section className="relative container-page mx-auto py-24">
-      <div className="pointer-events-none absolute -right-32 top-1/4 hidden h-[500px] w-[500px] rounded-full opacity-25 blur-[100px] dark:block" style={{ background: "radial-gradient(circle at center, #1e3a5f 0%, transparent 70%)" }} />
       <div className="relative z-[1]">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
+      <m.div
+        initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.4 }}
       >
         <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
           Tech Stack
@@ -40,22 +39,22 @@ export const Skills = () => {
         <p className="mt-6 max-w-none text-lg text-muted-foreground">
           Technologies and tools I work with to build cloud-native applications, AI solutions, and automated systems.
         </p>
-      </motion.div>
+      </m.div>
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((group, i) => {
           const Icon = iconMap[group.category] || Code;
           return (
-            <motion.div
+            <m.div
               key={group.category}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="rounded-xl border border-border bg-card p-6 shadow-sm"
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ delay: i * 0.05, duration: 0.35 }}
+              className="glass-card rounded-3xl p-6"
             >
               <div className="mb-3 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
                   <Icon size={20} className={accentColors[group.category]} />
                 </div>
                 <h3 className="text-base font-semibold">{group.category}</h3>
@@ -63,7 +62,7 @@ export const Skills = () => {
               <p className="text-sm leading-relaxed text-muted-foreground">
                 {group.details}
               </p>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>

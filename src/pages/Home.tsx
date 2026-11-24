@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowDown, ArrowRight, Code2, Cloud, Sparkles, Zap, FileText } from "lucide-react";
 import { projects } from "../data/projects";
 import { skillGroups } from "../data/skills";
 import { Testimonials } from "../sections/Testimonials";
+import { TechIcon } from "../components/TechIcon";
 import { item } from "../utils/animations";
+import { thumbnail } from "../utils/images";
 
 const featuredProjects = projects.filter((p) => p.featured).reverse();
 
@@ -31,24 +33,12 @@ export const Home = () => {
 
   return (
     <>
-      <section className="relative flex min-h-[90vh] items-center overflow-hidden">
-        <div
-          className="pointer-events-none absolute -left-16 -top-20 hidden h-[700px] w-[700px] rounded-full opacity-50 blur-[120px] dark:block"
-          style={{ background: "radial-gradient(circle at center, #7c3aed 0%, #1e3a5f 55%, transparent 85%)" }}
-        />
-        <div
-          className="pointer-events-none absolute -right-24 top-[5%] hidden h-[450px] w-[450px] rounded-full opacity-50 blur-[90px] dark:block"
-          style={{ background: "radial-gradient(circle at center, #00b4a0 0%, transparent 70%)" }}
-        />
-        <div
-          className="pointer-events-none absolute -right-32 top-[15%] hidden h-[600px] w-[600px] rounded-full opacity-60 blur-[120px] dark:block"
-          style={{ background: "radial-gradient(circle at center, #1a3a8f 0%, transparent 65%)" }}
-        />
+      <section className="horizon-hero relative flex min-h-[90vh] items-center">
         <div className="container-page relative z-[2] mx-auto">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="mx-auto flex max-w-4xl flex-col items-center gap-8 text-center"
           >
             <div className="shrink-0">
@@ -69,29 +59,29 @@ export const Home = () => {
             </div>
 
             <div className="flex flex-col items-center">
-          <motion.h1
+          <m.h1
             className="text-balance text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           >
                 <span className="text-foreground">
                   Hi, I&apos;m{" "}
                 </span>
-                <motion.span
+                <m.span
                   variants={prefersReduced ? undefined : item}
                   className="inline-block whitespace-nowrap text-foreground"
                 >
                   Marouane
-                </motion.span>
+                </m.span>
                 <span> </span>
-                <motion.span
+                <m.span
                   variants={prefersReduced ? undefined : item}
                   className="inline-block whitespace-nowrap text-foreground"
                 >
                   Dagana
-                </motion.span>
-              </motion.h1>
+                </m.span>
+              </m.h1>
 
               <p
-                className="mt-6 max-w-3xl text-base text-muted-foreground/60 sm:text-lg md:text-xl lg:text-2xl"
+                className="mt-6 max-w-3xl text-base text-muted-foreground sm:text-lg md:text-xl lg:text-2xl"
               >
                 Full-Stack AI Dev &bull; AWS Cloud &bull; RAG, LLM &amp; Chatbots (React, Node, Python)
               </p>
@@ -101,43 +91,41 @@ export const Home = () => {
               >
                 <Link
                   to="/contact"
-                  className="inline-flex h-12 w-full items-center justify-center rounded-lg bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
+                  className="inline-flex h-12 w-full items-center justify-center press rounded-full bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
                 >
                   Get in Touch
                 </Link>
                 <Link
                   to="/projects"
-                  className="inline-flex h-12 w-full items-center justify-center rounded-lg border border-input bg-background px-8 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground sm:w-auto"
+                  className="inline-flex h-12 w-full items-center justify-center glass-button rounded-full px-8 text-sm font-medium sm:w-auto"
                 >
                   View Projects
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
-        <motion.a
+        <m.a
           href="#about"
           className="absolute bottom-10 left-1/2 z-[1] -translate-x-1/2 animate-bounce text-muted-foreground/40 transition-colors hover:text-muted-foreground"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
+          transition={{ delay: 0.6, duration: 0.4 }}
           aria-label="Scroll down"
         >
           <ArrowDown size={24} />
-        </motion.a>
+        </m.a>
       </section>
 
-      <section id="about" className="relative overflow-hidden py-24">
-        <div className="absolute right-0 top-0 -z-10 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute bottom-0 left-0 -z-10 h-96 w-96 rounded-full bg-secondary blur-3xl" />
+      <section id="about" className="relative py-24">
 
         <div className="container-page mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+          <m.div
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.4 }}
             className="mx-auto max-w-3xl text-center"
           >
             <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
@@ -146,35 +134,35 @@ export const Home = () => {
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
               I&apos;m a Full-Stack Developer and AWS/AI Engineer with 4+ years of experience. I build AI-powered chatbots, RAG systems, automation workflows, and serverless backends on AWS Bedrock and Lambda.
             </p>
-          </motion.div>
+          </m.div>
 
           <div className="mx-auto mt-12 grid max-w-4xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {highlights.map((hl, i) => (
-              <motion.div
+              <m.div
                 key={hl.label}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="rounded-xl border border-border bg-card p-6 text-center shadow-sm transition-shadow hover:shadow-md"
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: i * 0.05, duration: 0.35 }}
+                className="glass-card rounded-3xl p-6 text-center card-hover"
               >
                 <div className={`mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl ${hl.color}`}>
                   <hl.icon size={24} />
                 </div>
                 <h3 className="mb-2 font-semibold text-card-foreground">{hl.label}</h3>
                 <p className="text-sm text-muted-foreground">{hl.description}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
 
           <div className="mx-auto mt-16 max-w-4xl space-y-6">
             {skillGroups.map((group, catIndex) => (
-              <motion.div
+              <m.div
                 key={group.category}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: catIndex * 0.1, duration: 0.4 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: catIndex * 0.04, duration: 0.4 }}
               >
                 <h3 className={`mb-3 text-sm font-semibold uppercase tracking-wider ${categoryAccent[group.category]}`}>
                   {group.category}
@@ -182,50 +170,42 @@ export const Home = () => {
                 <p className="text-sm leading-relaxed text-muted-foreground">
                   {group.details}
                 </p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
 
-          <motion.div
+          <m.div
             className="mt-12 flex flex-wrap justify-center gap-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.5 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ delay: 0.1, duration: 0.35 }}
           >
             <Link
               to="/about"
-              className="inline-flex h-12 w-full items-center justify-center rounded-lg border border-input bg-background px-8 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground sm:w-auto"
+              className="inline-flex h-12 w-full items-center justify-center glass-button rounded-full px-8 text-sm font-medium sm:w-auto"
             >
               Learn More About Me
               <ArrowRight size={16} className="ml-2" />
             </Link>
             <button
               onClick={() => window.open("/resume.pdf", "_blank")}
-              className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
+              className="inline-flex h-12 w-full items-center justify-center gap-2 press rounded-full bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
             >
               <FileText size={18} />
               View Resume
             </button>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
-      <section className="relative overflow-hidden py-24">
-        <div
-          className="pointer-events-none absolute -right-20 top-[8%] hidden h-[400px] w-[400px] rounded-full opacity-45 blur-[90px] dark:block"
-          style={{ background: "radial-gradient(circle at center, #7c3aed 0%, transparent 70%)" }}
-        />
-        <div
-          className="pointer-events-none absolute -right-28 top-[20%] hidden h-[550px] w-[550px] rounded-full opacity-55 blur-[120px] dark:block"
-          style={{ background: "radial-gradient(circle at center, #4c1d95 0%, transparent 65%)" }}
-        />
+      <section className="relative py-24">
         <div className="container-page relative z-[2] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+          <m.div
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.4 }}
             className="text-center"
           >
             <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
@@ -234,25 +214,26 @@ export const Home = () => {
             <p className="mt-6 text-lg text-muted-foreground">
               A selection of my best work across cloud infrastructure, AI, and full-stack development.
             </p>
-          </motion.div>
+          </m.div>
 
           <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map((project, i) => (
-              <motion.div
+              <m.div
                 key={project.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.12, duration: 0.5 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: i * 0.05, duration: 0.35 }}
                 className="h-full"
               >
               <Link
                 to={`/projects/${project.id}`}
-                className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm transition-shadow hover:border-border/80 hover:shadow-md"
+                className="group relative flex h-full flex-col overflow-hidden glass-card rounded-3xl text-card-foreground card-hover"
               >
                 <div className="relative h-40 overflow-hidden bg-gradient-to-br from-muted to-background">
                   <img
-                    src={project.image}
+                    src={thumbnail(project.image)}
+                    decoding="async"
                     alt={project.title}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -275,33 +256,34 @@ export const Home = () => {
                     {project.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-md border border-border/60 bg-muted/50 px-2 py-0.5 text-[11px] text-muted-foreground"
+                        className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/50 px-2 py-0.5 text-[11px] text-muted-foreground"
                       >
+                        <TechIcon name={tag} />
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
               </Link>
-              </motion.div>
+              </m.div>
             ))}
           </div>
 
-          <motion.div
+          <m.div
             className="mt-12 flex justify-center"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.5 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ delay: 0.15, duration: 0.35 }}
           >
             <Link
               to="/projects"
-              className="inline-flex h-12 w-full items-center justify-center rounded-lg border border-input bg-background px-8 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground sm:w-auto"
+              className="inline-flex h-12 w-full items-center justify-center glass-button rounded-full px-8 text-sm font-medium sm:w-auto"
             >
               View All Projects
               <ArrowRight size={16} className="ml-2" />
             </Link>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 

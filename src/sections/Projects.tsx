@@ -1,17 +1,23 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { m } from "framer-motion";
 import { ExternalLink, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { projects, projectCategories } from "../data/projects";
 import { ProjectCategory } from "../types";
 import { GithubIcon } from "../components/icons/GithubIcon";
+import { TechIcon } from "../components/TechIcon";
+import { thumbnail } from "../utils/images";
 
 const ITEMS_PER_PAGE = 8;
 
+const gridVars = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.04 } },
+};
+
 const cardVars = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-  exit: { opacity: 0, transition: { duration: 0.2 } },
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
 };
 
 export const Projects = () => {
@@ -64,15 +70,21 @@ export const Projects = () => {
     setCurrentPage(page);
   }, []);
 
+  useEffect(() => {
+    if (shouldScrollRef.current) {
+      shouldScrollRef.current = false;
+      scrollToSection();
+    }
+  }, [currentPage, scrollToSection]);
+
   return (
     <section ref={sectionRef} className="relative container-page mx-auto py-24">
-      <div className="pointer-events-none absolute -right-28 top-1/3 hidden h-[550px] w-[550px] rounded-full opacity-20 blur-[120px] dark:block" style={{ background: "radial-gradient(circle at center, #7c3aed 0%, transparent 65%)" }} />
       <div className="relative z-[1]">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
+      <m.div
+        initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.4 }}
       >
         <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
           All Projects
@@ -81,7 +93,7 @@ export const Projects = () => {
           A selection of projects showcasing my work across cloud infrastructure, AI, full-stack
           development, and workflow automation.
         </p>
-      </motion.div>
+      </m.div>
 
       <div className="mt-12 mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap gap-2">
@@ -89,10 +101,10 @@ export const Projects = () => {
             <button
               key={category}
               onClick={() => handleCategoryChange(category)}
-              className={`rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
+              className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
                 activeCategory === category
                   ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-background text-foreground/60 hover:bg-accent hover:text-accent-foreground"
+                  : "glass-button text-foreground/70 hover:text-foreground"
               }`}
             >
               {category}
@@ -106,42 +118,37 @@ export const Projects = () => {
             value={searchTerm}
             onChange={(e) => handleSearch(e.target.value)}
             placeholder="Search projects..."
-            className="w-full rounded-md border border-input bg-background py-2.5 pl-10 pr-4 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring sm:w-64"
+            className="w-full glass-input rounded-2xl py-2.5 pl-10 pr-4 text-sm outline-none placeholder:text-muted-foreground sm:w-64"
           />
         </div>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2">
-        <AnimatePresence mode="wait" onExitComplete={() => {
-          if (shouldScrollRef.current) {
-            shouldScrollRef.current = false;
-            scrollToSection();
-          }
-        }}>
+      <m.div
+        key={`${activeCategory}-${currentPage}`}
+        variants={gridVars}
+        initial="hidden"
+        animate="visible"
+        className="grid gap-8 md:grid-cols-2"
+      >
           {paginated.length === 0 ? (
-            <motion.p
-              key="empty"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+            <m.p
+              variants={cardVars}
               className="col-span-full py-16 text-center text-muted-foreground"
             >
               No projects match your search.
-            </motion.p>
+            </m.p>
           ) : (
             paginated.map((project) => (
-              <motion.div
+              <m.div
                 key={project.id}
-                layout
                 variants={cardVars}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm transition-shadow hover:border-border/80 hover:shadow-md"
+                className="group relative flex h-full flex-col overflow-hidden glass-card rounded-3xl text-card-foreground card-hover"
               >
                 <Link to={`/projects/${project.id}`} className="flex flex-1 flex-col">
                   <div className="relative h-48 overflow-hidden bg-gradient-to-br from-muted to-background">
                     <img
-                      src={project.image}
+                      src={thumbnail(project.image)}
+                    decoding="async"
                       alt={project.title}
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -164,8 +171,9 @@ export const Projects = () => {
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-md border border-border/60 bg-muted/50 px-2 py-0.5 text-[11px] text-muted-foreground"
+                          className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/50 px-2 py-0.5 text-[11px] text-muted-foreground"
                         >
+                          <TechIcon name={tag} />
                           {tag}
                         </span>
                       ))}
@@ -212,18 +220,17 @@ export const Projects = () => {
                     </a>
                   )}
                 </div>
-              </motion.div>
+              </m.div>
             ))
           )}
-        </AnimatePresence>
-      </div>
+      </m.div>
 
       {totalPages > 1 && (
         <div className="mt-12 flex items-center justify-center gap-2">
           <button
             onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed"
+            className="glass-button inline-flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <ChevronLeft size={18} />
           </button>
@@ -231,10 +238,10 @@ export const Projects = () => {
             <button
               key={page}
               onClick={() => handlePageChange(page)}
-              className={`inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium transition-colors ${
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium transition-colors ${
                 page === currentPage
                   ? "bg-primary text-primary-foreground"
-                  : "border border-border text-muted-foreground hover:bg-accent hover:text-foreground"
+                  : "glass-button text-muted-foreground hover:text-foreground"
               }`}
             >
               {page}
@@ -243,7 +250,7 @@ export const Projects = () => {
           <button
             onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed"
+            className="glass-button inline-flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <ChevronRight size={18} />
           </button>

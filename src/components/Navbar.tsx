@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Menu, X, Home, User, FolderKanban, Mail, Sun, Moon, FileText } from "lucide-react";
 import { useTheme } from "../hooks/useTheme";
 
 const navLinks = [
   { label: "Home", href: "/", icon: Home, subtitle: "Overview and highlights" },
-  { label: "About", href: "/about", icon: User, subtitle: "Bio and expertise" },
   { label: "Projects", href: "/projects", icon: FolderKanban, subtitle: "GitHub repos, open-source, and experiments" },
+  { label: "About", href: "/about", icon: User, subtitle: "Bio and expertise" },
   { label: "Contact", href: "/contact", icon: Mail, subtitle: "Let's build together" },
 ];
 
@@ -48,25 +48,26 @@ export const Navbar = () => {
 
   return (
     <>
-    <nav
-      className={`fixed top-0 z-50 h-16 w-full border-b border-border/30 transition-colors ${
-        scrolled || drawerOpen ? "bg-background/95 backdrop-blur-sm" : "bg-background"
-      }`}
-    >
-      <div className="container-page mx-auto flex h-full items-center justify-between">
-        <Link to="/" className="text-xl font-bold tracking-tight text-foreground">
+    <div aria-hidden className={`nav-veil ${scrolled ? "nav-veil-on" : ""}`} />
+    <nav className="fixed inset-x-0 top-3 z-50 px-3 sm:px-6 lg:px-10">
+      <div
+        className={`glass-nav mx-auto flex h-14 max-w-[1400px] items-center justify-between rounded-full pl-5 pr-2 sm:pl-6 ${
+          scrolled || drawerOpen ? "glass-nav-scrolled" : ""
+        }`}
+      >
+        <Link to="/" className="text-lg font-bold tracking-tight text-foreground sm:text-xl">
           Marouane Dagana | Portfolio
         </Link>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.href;
             return (
               <Link
                 key={link.href}
                 to={link.href}
-                className={`text-sm font-medium transition-colors ${
-                  isActive ? "text-foreground" : "text-foreground/60 hover:text-foreground"
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-[colors,transform] active:scale-95 ${
+                  isActive ? "glass-pill-active text-foreground" : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
                 }`}
               >
                 {link.label}
@@ -76,14 +77,14 @@ export const Navbar = () => {
           <button
             onClick={() => window.open("/resume.pdf", "_blank")}
             aria-label="Open resume"
-            className="rounded-md p-2 text-primary transition-colors hover:bg-primary/10"
+            className="ml-2 rounded-full p-2.5 text-primary transition-colors hover:bg-foreground/5"
           >
             <FileText size={18} />
           </button>
           <button
             onClick={cycle}
             aria-label="Cycle theme"
-            className="relative rounded-md p-2 transition-colors hover:bg-accent hover:text-accent-foreground"
+            className="relative rounded-full p-2.5 transition-colors hover:bg-foreground/5"
           >
             <Sun size={18} className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon size={18} className="absolute inset-0 m-auto rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -91,7 +92,7 @@ export const Navbar = () => {
         </div>
 
         <button
-          className="rounded-md p-2 text-foreground/60 transition-colors hover:text-foreground md:hidden"
+          className="rounded-full p-2.5 text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground md:hidden"
           onClick={() => setDrawerOpen(true)}
           aria-label="Open menu"
         >
@@ -103,29 +104,29 @@ export const Navbar = () => {
     <AnimatePresence>
       {drawerOpen && (
         <>
-          <motion.div
+          <m.div
             key="backdrop"
             variants={drawerBackdrop}
             initial="hidden"
             animate="visible"
             exit="hidden"
-            className="fixed inset-0 z-50 bg-black/60 md:hidden"
+            className="fixed inset-0 z-50 bg-black/40 md:hidden"
             onClick={() => setDrawerOpen(false)}
           />
-          <motion.div
+          <m.div
             key="drawer"
             variants={drawerPanel}
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed right-0 top-0 z-[60] flex h-dvh w-80 max-w-[85vw] flex-col bg-background shadow-2xl md:hidden"
+            className="glass-panel fixed bottom-3 right-3 top-3 z-[60] flex w-80 max-w-[85vw] flex-col overflow-hidden rounded-[2rem] md:hidden"
           >
-            <div className="flex h-16 shrink-0 items-center justify-between border-b border-border px-6">
+            <div className="flex h-16 shrink-0 items-center justify-between border-b border-foreground/10 px-6">
               <span className="text-lg font-semibold text-foreground">Menu</span>
               <button
                 onClick={() => setDrawerOpen(false)}
                 aria-label="Close menu"
-                className="rounded-md p-2 text-foreground/60 transition-colors hover:bg-accent hover:text-accent-foreground"
+                className="rounded-full p-2 text-foreground/60 transition-colors hover:bg-foreground/5 hover:text-foreground"
               >
                 <X size={20} />
               </button>
@@ -143,8 +144,8 @@ export const Navbar = () => {
                       key={link.href}
                       to={link.href}
                       onClick={() => setDrawerOpen(false)}
-                      className={`flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-accent ${
-                        isActive ? "bg-accent/50 text-foreground" : "text-foreground/70"
+                      className={`flex items-start gap-3 rounded-2xl px-3 py-2.5 transition-colors hover:bg-foreground/5 ${
+                        isActive ? "glass-pill-active text-foreground" : "text-foreground/70"
                       }`}
                     >
                       <link.icon size={20} className="mt-0.5 shrink-0" />
@@ -162,7 +163,7 @@ export const Navbar = () => {
               </p>
               <button
                 onClick={() => window.open("/resume.pdf", "_blank")}
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-primary transition-colors hover:bg-primary/10"
+                className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-primary transition-colors hover:bg-foreground/5"
               >
                 <FileText size={20} className="shrink-0" />
                 <span className="text-sm font-medium">View Resume</span>
@@ -179,8 +180,8 @@ export const Navbar = () => {
                     <button
                       key={t}
                       onClick={() => setTheme(t)}
-                      className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-accent ${
-                        isActive ? "bg-accent/50 text-foreground" : "text-foreground/70"
+                      className={`flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-left transition-colors hover:bg-foreground/5 ${
+                        isActive ? "glass-pill-active text-foreground" : "text-foreground/70"
                       }`}
                     >
                       <Icon size={20} className="shrink-0" />
@@ -191,7 +192,7 @@ export const Navbar = () => {
                 })}
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </>
       )}
     </AnimatePresence>

@@ -1,5 +1,5 @@
 import { useState, FormEvent, useRef } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Mail, MapPin, Send, ShieldAlert, Loader2 } from "lucide-react";
 import { UpworkIcon } from "../components/icons/UpworkIcon";
 
@@ -76,15 +76,13 @@ export const Contact = () => {
   };
 
   return (
-    <section className="relative container-page mx-auto overflow-hidden py-16 sm:py-24">
-      <div className="pointer-events-none absolute -left-28 top-1/4 hidden h-[500px] w-[500px] rounded-full opacity-25 blur-[110px] dark:block" style={{ background: "radial-gradient(circle at center, #7c3aed 0%, transparent 70%)" }} />
-      <div className="pointer-events-none absolute -right-20 top-1/2 hidden h-[400px] w-[400px] rounded-full opacity-20 blur-[100px] dark:block" style={{ background: "radial-gradient(circle at center, #1e3a5f 0%, transparent 70%)" }} />
+    <section className="relative container-page mx-auto py-16 sm:py-24">
       <div className="relative z-[1]">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
+      <m.div
+        initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.4 }}
       >
         <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
           Get In Touch
@@ -92,23 +90,23 @@ export const Contact = () => {
         <p className="mt-6 max-w-3xl text-lg text-muted-foreground">
           Need AI features, a serverless backend, or automation workflows? Let&apos;s talk.
         </p>
-      </motion.div>
+      </m.div>
 
       <div className="mt-8 grid gap-8 sm:gap-12 lg:grid-cols-2">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
+        <m.div
+          initial={{ opacity: 0, x: -14 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.5 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ delay: 0.08, duration: 0.35 }}
           className="space-y-6"
         >
-          <div className="rounded-xl border border-green-600/20 bg-card p-6 shadow-sm relative dark:border-green-500/20">
+          <div className="glass-card glass-card-green rounded-3xl p-6">
             <span className="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-full border border-green-600/20 bg-green-600/10 px-2.5 py-1 text-[11px] font-medium text-green-600 dark:border-green-500/20 dark:bg-green-500/10 dark:text-green-400">
               <span className="h-1.5 w-1.5 rounded-full bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.5)]" />
               Available
             </span>
             <div className="flex items-start gap-4">
-              <div className="rounded-lg bg-green-500/10 p-3 text-green-500">
+              <div className="rounded-xl bg-green-500/10 p-3 text-green-500">
                 <UpworkIcon size={24} />
               </div>
               <div className="flex-1">
@@ -130,9 +128,9 @@ export const Contact = () => {
             </div>
           </div>
 
-          <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
+          <div className="glass-card rounded-3xl p-6">
             <div className="flex items-start gap-4">
-              <div className="rounded-lg bg-emerald-500/10 p-3 text-emerald-500">
+              <div className="rounded-xl bg-emerald-500/10 p-3 text-emerald-500">
                 <Mail size={24} />
               </div>
               <div>
@@ -148,9 +146,9 @@ export const Contact = () => {
             </div>
           </div>
 
-          <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
+          <div className="glass-card rounded-3xl p-6">
             <div className="flex items-start gap-4">
-              <div className="rounded-lg bg-violet-500/10 p-3 text-violet-500">
+              <div className="rounded-xl bg-violet-500/10 p-3 text-violet-500">
                 <MapPin size={24} />
               </div>
               <div>
@@ -162,16 +160,16 @@ export const Contact = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
+        <m.div
+          initial={{ opacity: 0, x: 14 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.5 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ delay: 0.1, duration: 0.35 }}
         >
           {status === "success" ? (
-            <div className="flex flex-col items-center rounded-xl border border-border bg-card p-8 text-center shadow-sm">
+            <div className="flex flex-col items-center glass-card rounded-3xl p-8 text-center">
               <div className="mb-4 rounded-full bg-green-500/10 p-4 text-green-500">
                 <Send size={32} />
               </div>
@@ -181,7 +179,7 @@ export const Contact = () => {
               </p>
             </div>
           ) : status === "rate_limited" ? (
-            <div className="flex flex-col items-center rounded-xl border border-border bg-card p-8 text-center shadow-sm">
+            <div className="flex flex-col items-center glass-card rounded-3xl p-8 text-center">
               <div className="mb-4 rounded-full bg-amber-500/10 p-4 text-amber-500">
                 <ShieldAlert size={32} />
               </div>
@@ -197,7 +195,7 @@ export const Contact = () => {
               </button>
             </div>
           ) : status === "error" ? (
-            <div className="flex flex-col items-center rounded-xl border border-border bg-card p-8 text-center shadow-sm">
+            <div className="flex flex-col items-center glass-card rounded-3xl p-8 text-center">
               <div className="mb-4 rounded-full bg-red-500/10 p-4 text-red-500">
                 <Send size={32} />
               </div>
@@ -213,7 +211,7 @@ export const Contact = () => {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-border bg-card p-6 shadow-sm">
+            <form onSubmit={handleSubmit} className="space-y-5 glass-card rounded-3xl p-6">
               <div className="absolute opacity-0 pointer-events-none" aria-hidden="true">
                 <label htmlFor="_website">Website</label>
                 <input type="text" id="_website" name="_website" tabIndex={-1} autoComplete="off" />
@@ -228,7 +226,7 @@ export const Contact = () => {
                   type="text"
                   required
                   maxLength={VALIDATE.nameMax}
-                  className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring"
+                  className="w-full glass-input rounded-2xl px-4 py-3 text-sm outline-none placeholder:text-muted-foreground"
                   placeholder="Your name"
                 />
               </div>
@@ -243,7 +241,7 @@ export const Contact = () => {
                   type="email"
                   required
                   maxLength={254}
-                  className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring"
+                  className="w-full glass-input rounded-2xl px-4 py-3 text-sm outline-none placeholder:text-muted-foreground"
                   placeholder="your@email.com"
                 />
               </div>
@@ -258,7 +256,7 @@ export const Contact = () => {
                   required
                   rows={4}
                   maxLength={VALIDATE.messageMax}
-                  className="w-full resize-none rounded-md border border-input bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring"
+                  className="w-full resize-none glass-input rounded-2xl px-4 py-3 text-sm outline-none placeholder:text-muted-foreground"
                   placeholder="Tell me about your project..."
                 />
               </div>
@@ -266,7 +264,7 @@ export const Contact = () => {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60"
+                className="inline-flex h-12 w-full items-center justify-center gap-2 press rounded-full bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60"
               >
                 {status === "loading" ? (
                   <>
@@ -282,7 +280,7 @@ export const Contact = () => {
               </button>
             </form>
           )}
-        </motion.div>
+        </m.div>
       </div>
       </div>
     </section>

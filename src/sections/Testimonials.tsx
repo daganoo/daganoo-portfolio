@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Star } from "lucide-react";
 import { UpworkIcon } from "../components/icons/UpworkIcon";
 import { testimonials } from "../data/testimonials";
@@ -16,16 +16,14 @@ const platformIcon: Record<Testimonial["platform"], { icon: React.FC<{ size: num
 
 export const Testimonials = () => {
   return (
-    <section className="relative overflow-hidden py-24">
-      <div className="absolute right-0 top-0 -z-10 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
-      <div className="absolute bottom-0 left-0 -z-10 h-96 w-96 rounded-full bg-secondary blur-3xl" />
+    <section className="relative py-24">
 
       <div className="container-page mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+        <m.div
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.4 }}
           className="text-center"
         >
           <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
@@ -34,19 +32,19 @@ export const Testimonials = () => {
           <p className="mt-6 text-lg text-muted-foreground">
             Feedback from clients and collaborators I&apos;ve worked with.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, i) => {
             const PlatformIcon = platformIcon[t.platform].icon;
             return (
-              <motion.div
+              <m.div
                 key={t.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.12, duration: 0.5 }}
-                className="flex flex-col rounded-xl border border-border bg-card p-6 shadow-sm"
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: i * 0.05, duration: 0.35 }}
+                className="flex flex-col glass-card rounded-3xl p-6"
               >
                 <div className="mb-4 flex gap-1">
                   {Array.from({ length: t.rating }).map((_, starIdx) => (
@@ -80,7 +78,7 @@ export const Testimonials = () => {
                     {platformIcon[t.platform].label}
                   </a>
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>

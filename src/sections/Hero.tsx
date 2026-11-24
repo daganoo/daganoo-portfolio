@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { ArrowDown, ExternalLink } from "lucide-react";
 import { easeOutExpo, container, item } from "../utils/animations";
 
@@ -16,7 +16,7 @@ const letter = {
     opacity: 1,
     y: 0,
     rotateX: 0,
-    transition: { duration: 0.5, ease: easeOutExpo },
+    transition: { duration: 0.35, ease: easeOutExpo },
   },
 };
 
@@ -32,22 +32,22 @@ const LetterSpan = ({
   gradient: boolean;
   disabled: boolean;
 }) => (
-  <motion.span
+  <m.span
     variants={disabled ? undefined : letter}
     className={`inline-block ${gradient ? "text-gradient" : "text-gray-800 dark:text-gray-200"}`}
   >
     {char === " " ? "\u00A0" : char}
-  </motion.span>
+  </m.span>
 );
 
 const BreakSpan = ({ disabled }: { disabled: boolean }) => (
-  <motion.span
+  <m.span
     variants={disabled ? undefined : letter}
     className="block h-0 w-full select-none"
     aria-hidden="true"
   >
     &nbsp;
-  </motion.span>
+  </m.span>
 );
 
 export const Hero = () => {
@@ -58,20 +58,20 @@ export const Hero = () => {
       id="hero"
       className="section-container relative flex min-h-screen flex-col items-center justify-center text-center"
     >
-      <motion.div
+      <m.div
         variants={container}
         initial="hidden"
         animate="visible"
         className="max-w-3xl"
       >
-        <motion.p
+        <m.p
           variants={item}
           className="mb-4 font-mono text-sm text-brand-500 dark:text-brand-400"
         >
           Hello, I&apos;m
-        </motion.p>
+        </m.p>
 
-        <motion.h1
+        <m.h1
           className="mb-2 text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl"
           variants={prefersReduced ? undefined : nameReveal}
           initial={prefersReduced ? undefined : "hidden"}
@@ -94,18 +94,18 @@ export const Hero = () => {
               disabled={prefersReduced}
             />
           ))}
-        </motion.h1>
+        </m.h1>
 
-        <motion.p
+        <m.p
           variants={item}
           className="mb-8 text-xl leading-relaxed text-gray-500 dark:text-gray-400 sm:text-2xl"
         >
           Full-Stack AI Dev &bull; AWS Cloud &bull; RAG, LLM &amp; Chatbots
           <br />
           React, Node.js, Python
-        </motion.p>
+        </m.p>
 
-        <motion.div
+        <m.div
           variants={item}
           className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
         >
@@ -122,19 +122,19 @@ export const Hero = () => {
           >
             Get In Touch
           </a>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
-      <motion.a
+      <m.a
         href="#about"
         className="absolute bottom-10 animate-bounce text-gray-300 transition-colors hover:text-gray-600 dark:text-gray-500 dark:hover:text-white"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.6 }}
+        transition={{ delay: 1.4, duration: 0.4 }}
         aria-label="Scroll down"
       >
         <ArrowDown size={24} />
-      </motion.a>
+      </m.a>
     </section>
   );
 };

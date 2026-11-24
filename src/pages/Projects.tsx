@@ -2,7 +2,7 @@ import { Projects as ProjectsSection } from "../sections/Projects";
 
 export const ProjectsPage = () => {
   return (
-    <div className="bg-background">
+    <div>
       <ProjectsSection />
     </div>
   );

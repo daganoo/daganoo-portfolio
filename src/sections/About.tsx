@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
+import { m, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { BadgeCheck, Code2, Cloud, FileText, MapPin, Sparkles, Zap } from "lucide-react";
 import { JobSuccessIcon } from "../components/icons/JobSuccessIcon";
@@ -35,7 +35,7 @@ const AnimatedCounter = ({
 
   return (
     <p className="text-3xl font-bold text-primary">
-      <motion.span ref={ref}>{rounded}</motion.span>
+      <m.span ref={ref}>{rounded}</m.span>
       {suffix}
     </p>
   );
@@ -46,13 +46,13 @@ const formatTime = (timeZone: string) =>
     .format(new Date())
     .toLowerCase();
 
-const useLocalTime = (timeZone: string) => {
+const LocalTime = ({ timeZone }: { timeZone: string }) => {
   const [time, setTime] = useState(() => formatTime(timeZone));
   useEffect(() => {
-    const id = setInterval(() => setTime(formatTime(timeZone)), 1000);
+    const id = setInterval(() => setTime(formatTime(timeZone)), 30000);
     return () => clearInterval(id);
   }, [timeZone]);
-  return time;
+  return <>{time}</>;
 };
 
 const highlights = [
@@ -63,18 +63,14 @@ const highlights = [
 ];
 
 export const About = () => {
-  const localTime = useLocalTime(upworkProfile.timezone);
-
   return (
     <section className="relative container-page mx-auto py-24">
-      <div className="pointer-events-none absolute -left-32 top-1/3 hidden h-[600px] w-[600px] rounded-full opacity-35 blur-[120px] dark:block" style={{ background: "radial-gradient(circle at center, #4c1d95 0%, transparent 70%)" }} />
-      <div className="pointer-events-none absolute -right-20 top-2/3 hidden h-[400px] w-[400px] rounded-full opacity-20 blur-[100px] dark:block" style={{ background: "radial-gradient(circle at center, #1e3a5f 0%, transparent 70%)" }} />
       <div className="relative z-[1]">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
+      <m.div
+        initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.4 }}
       >
         <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
           About Me
@@ -88,83 +84,83 @@ export const About = () => {
         </p>
         <button
           onClick={() => window.open("/resume.pdf", "_blank")}
-          className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
+          className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 press rounded-full bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
         >
           <FileText size={18} />
           View Resume
         </button>
-      </motion.div>
+      </m.div>
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ delay: 0.05, duration: 0.4 }}
-          className="rounded-xl border border-border bg-card p-5 text-center shadow-sm"
+          className="glass-card rounded-3xl p-5 text-center"
         >
           <AnimatedCounter from={0} to={4} suffix="+" delay={0.1} />
           <p className="mt-1 text-sm text-muted-foreground">Years Experience</p>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        </m.div>
+        <m.div
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ delay: 0.1, duration: 0.4 }}
-          className="rounded-xl border border-border bg-card p-5 text-center shadow-sm"
+          className="glass-card rounded-3xl p-5 text-center"
         >
           <AnimatedCounter from={0} to={12} suffix="+" delay={0.2} />
           <p className="mt-1 text-sm text-muted-foreground">Projects Delivered</p>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        </m.div>
+        <m.div
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ delay: 0.15, duration: 0.4 }}
-          className="rounded-xl border border-border bg-card p-5 text-center shadow-sm"
+          className="glass-card rounded-3xl p-5 text-center"
         >
           <AnimatedCounter from={0} to={2} suffix="+" delay={0.3} />
           <p className="mt-1 text-sm text-muted-foreground">Years Freelancing</p>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        </m.div>
+        <m.div
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.4 }}
-          className="rounded-xl border border-border bg-card p-5 text-center shadow-sm"
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ delay: 0.08, duration: 0.4 }}
+          className="glass-card rounded-3xl p-5 text-center"
         >
           <AnimatedCounter from={0} to={4} suffix="+" delay={0.4} />
           <p className="mt-1 text-sm text-muted-foreground">Tech Stacks</p>
-        </motion.div>
+        </m.div>
       </div>
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {highlights.map((hl, i) => (
-          <motion.div
+          <m.div
             key={hl.label}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1, duration: 0.5 }}
-            className="rounded-xl border border-border bg-card p-6 text-center shadow-sm"
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ delay: i * 0.05, duration: 0.35 }}
+            className="glass-card rounded-3xl p-6 text-center"
           >
             <div className={`mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl ${hl.color}`}>
               <hl.icon size={24} />
             </div>
             <h3 className="mb-2 font-semibold text-card-foreground">{hl.label}</h3>
             <p className="text-sm text-muted-foreground">{hl.description}</p>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
+      <m.div
+        initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.4, duration: 0.5 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ delay: 0.15, duration: 0.35 }}
         className="mt-8"
       >
-        <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+        <div className="overflow-hidden glass-card rounded-3xl">
           <div className="flex flex-col gap-5 p-6 sm:flex-row sm:items-start sm:justify-between md:p-8">
             <div className="flex items-start gap-4 md:gap-6">
               <div className="relative shrink-0">
@@ -182,7 +178,7 @@ export const About = () => {
                 </div>
                 <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground md:text-base">
                   <MapPin size={16} />
-                  {upworkProfile.location} – {localTime} local time
+                  {upworkProfile.location} – <LocalTime timeZone={upworkProfile.timezone} /> local time
                 </p>
                 <div className="mt-3 flex flex-wrap items-center gap-5 text-sm font-medium text-card-foreground md:text-base">
                   {upworkProfile.badges.map((badge) => (
@@ -220,7 +216,7 @@ export const About = () => {
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
       </div>
     </section>
   );

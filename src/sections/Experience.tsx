@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Briefcase, GraduationCap } from "lucide-react";
 import { education, work } from "../data/experience";
 import { UpworkIcon } from "../components/icons/UpworkIcon";
@@ -9,7 +9,7 @@ const cardVariants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.15, duration: 0.5 },
+    transition: { delay: i * 0.05, duration: 0.35 },
   }),
 };
 
@@ -21,13 +21,13 @@ const TimelineCard = ({ exp, i }: { exp: ExperienceType; i: number }) => {
   const iconColor = isEducation ? "text-blue-500" : "text-green-500";
 
   return (
-    <motion.div
+    <m.div
       className="relative pl-12"
       custom={i}
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true }}
+      viewport={{ once: true, amount: 0.15 }}
     >
       <div
         className={`absolute left-0 top-1 flex h-8 w-8 items-center justify-center rounded-full border-2 border-border bg-background ${iconColor}`}
@@ -35,7 +35,7 @@ const TimelineCard = ({ exp, i }: { exp: ExperienceType; i: number }) => {
         {isEducation ? <GraduationCap size={14} /> : <Briefcase size={14} />}
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
+      <div className="glass-card rounded-3xl p-5">
         <div className="mb-1 flex flex-wrap items-center gap-2">
           <span className={`rounded-md border px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${accent}`}>
             {isEducation ? "Education" : "Work"}
@@ -72,20 +72,19 @@ const TimelineCard = ({ exp, i }: { exp: ExperienceType; i: number }) => {
           ))}
         </ul>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 
 export const Experience = () => {
   return (
     <section className="relative container-page mx-auto py-24">
-      <div className="pointer-events-none absolute -left-20 top-1/3 hidden h-[400px] w-[400px] rounded-full opacity-25 blur-[100px] dark:block" style={{ background: "radial-gradient(circle at center, #7c3aed 0%, transparent 70%)" }} />
       <div className="relative z-[1]">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
+      <m.div
+        initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.4 }}
       >
         <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
           Experience &amp; Education
@@ -93,12 +92,12 @@ export const Experience = () => {
         <p className="mt-6 max-w-none text-lg text-muted-foreground">
           My journey through cloud engineering, AI development, and software engineering.
         </p>
-      </motion.div>
+      </m.div>
 
       <div className="mt-16 grid gap-12 lg:grid-cols-2">
         <div>
           <div className="mb-8 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-500/10">
               <Briefcase size={20} className="text-green-500" />
             </div>
             <h3 className="text-xl font-semibold">Work</h3>
@@ -115,7 +114,7 @@ export const Experience = () => {
 
         <div>
           <div className="mb-8 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10">
               <GraduationCap size={20} className="text-blue-500" />
             </div>
             <h3 className="text-xl font-semibold">Education</h3>

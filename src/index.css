@@ -22,26 +22,40 @@
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
+    --hero-sky: 254 100% 76% / 0.34;
+    --hero-rose: 330 100% 84% / 0.28;
+    --hero-ember: 36 100% 72% / 0.5;
+    --horizon-sky: 256 100% 76% / 0.3;
+    --horizon-core: 34 100% 76% / 0.45;
+    --horizon-rim: 256 80% 72% / 0.55;
+    --horizon-dusk: 256 100% 78% / 0.28;
   }
 
   .dark {
-    --background: 220 25% 1.5%;
+    --background: 0 0% 0%;
     --foreground: 0 0% 93%;
-    --card: 220 18% 4%;
+    --card: 0 0% 4%;
     --card-foreground: 0 0% 93%;
-    --popover: 220 18% 4%;
+    --popover: 0 0% 4%;
     --popover-foreground: 0 0% 93%;
     --primary: 0 0% 93%;
-    --primary-foreground: 220 25% 1.5%;
-    --secondary: 220 15% 8%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 9%;
     --secondary-foreground: 0 0% 93%;
-    --muted: 220 15% 8%;
+    --muted: 0 0% 9%;
     --muted-foreground: 0 0% 65%;
-    --accent: 220 15% 8%;
+    --accent: 0 0% 9%;
     --accent-foreground: 0 0% 93%;
-    --border: 220 15% 13%;
-    --input: 220 15% 13%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
     --ring: 0 0% 83%;
+    --hero-sky: 252 90% 60% / 0.22;
+    --hero-rose: 322 70% 56% / 0.09;
+    --hero-ember: 30 100% 62% / 0.2;
+    --horizon-sky: 256 60% 55% / 0.14;
+    --horizon-core: 256 40% 80% / 0.07;
+    --horizon-rim: 256 45% 84% / 0.5;
+    --horizon-dusk: 256 60% 58% / 0.15;
   }
 
   * {
@@ -56,10 +70,276 @@
   body {
     @apply bg-background text-foreground antialiased overflow-x-hidden;
   }
+
+  /* Horizon system. Every page opens under the same light, and every following section opens
+     with the same arc in the gap above it, so the background always follows the layout. */
+  body::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 70vh;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(max(40vw, 320px) 22vh at 50% -6vh, hsl(var(--horizon-core)), transparent),
+      radial-gradient(max(70vw, 480px) 52vh at 50% -10vh, hsl(var(--horizon-sky)), transparent);
+  }
+
+  .horizon-hero::before {
+    content: "";
+    position: absolute;
+    top: -5rem;
+    left: 50%;
+    width: 100vw;
+    height: 80vh;
+    transform: translateX(-50%);
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(max(34vw, 260px) 24vh at 50% 0, hsl(var(--hero-ember)), transparent),
+      radial-gradient(max(52vw, 380px) 42vh at 50% 0, hsl(var(--hero-rose)), transparent),
+      radial-gradient(max(78vw, 560px) 68vh at 50% 0, hsl(var(--hero-sky)), transparent);
+  }
+
+  main section + section::before {
+    content: "";
+    position: absolute;
+    top: -170px;
+    left: 50%;
+    width: 100vw;
+    height: 240px;
+    transform: translateX(-50%);
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(
+      max(95vw, 420px) 400px at 50% 570px,
+      transparent 98.4%,
+      hsl(var(--horizon-rim)) 99.7%,
+      hsl(var(--horizon-dusk)) 100.6%,
+      transparent 130%
+    );
+    -webkit-mask-image: linear-gradient(90deg, transparent, rgb(0 0 0 / 0.12) 14%, #000 46%, #000 54%, rgb(0 0 0 / 0.12) 86%, transparent);
+    mask-image: linear-gradient(90deg, transparent, rgb(0 0 0 / 0.12) 14%, #000 46%, #000 54%, rgb(0 0 0 / 0.12) 86%, transparent);
+  }
 }
 
 @layer components {
   .container-page {
     @apply mx-auto max-w-[1440px] px-6 sm:px-8 lg:px-12;
+  }
+
+  /* iOS-style liquid glass: translucent fill + specular rim. Real backdrop blur only on the
+     strip behind the navbar and on the menu sheet; elsewhere it costs too much per frame. */
+  .glass-card,
+  .glass-button,
+  .glass-input,
+  .glass-nav,
+  .glass-panel,
+  .glass-pill-active {
+    border: 1px solid hsl(250 25% 45% / 0.14);
+    background-color: hsl(0 0% 100% / 0.42);
+    background-image: linear-gradient(var(--glass-angle, 160deg), hsl(0 0% 100% / 0.65) 0%, hsl(0 0% 100% / 0.12) 45%, hsl(0 0% 100% / 0.3) 100%);
+    box-shadow:
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.95),
+      0 1px 3px 0 hsl(240 30% 25% / 0.1);
+  }
+
+  .dark .glass-card,
+  .dark .glass-button,
+  .dark .glass-input,
+  .dark .glass-nav,
+  .dark .glass-panel,
+  .dark .glass-pill-active {
+    border-color: hsl(0 0% 100% / 0.08);
+    background-color: hsl(0 0% 5% / 0.6);
+    background-image: linear-gradient(var(--glass-angle, 160deg), hsl(0 0% 100% / 0.1) 0%, hsl(0 0% 100% / 0.015) 45%, hsl(0 0% 100% / 0.05) 100%);
+    box-shadow:
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.12),
+      0 1px 3px 0 hsl(0 0% 0% / 0.5);
+  }
+
+  .glass-nav {
+    background-color: hsl(0 0% 100% / 0.22);
+    background-image: linear-gradient(180deg, hsl(0 0% 100% / 0.35), hsl(0 0% 100% / 0.08));
+    transition: background-color 0.3s ease;
+  }
+
+  .dark .glass-nav {
+    background-color: hsl(0 0% 100% / 0.03);
+    background-image: linear-gradient(180deg, hsl(0 0% 100% / 0.06), hsl(0 0% 100% / 0.01));
+  }
+
+  .glass-panel {
+    -webkit-backdrop-filter: blur(24px) saturate(190%);
+    backdrop-filter: blur(24px) saturate(190%);
+  }
+
+  /* The only live blur on screen while scrolling. Every extra backdrop-filter layer (or a mask on
+     this one) multiplies GPU work per frame, so the navbar pill on top is a plain tint. */
+  .nav-veil {
+    position: fixed;
+    inset: 0 0 auto;
+    height: 70px;
+    z-index: 40;
+    pointer-events: none;
+    visibility: hidden;
+    background-color: hsl(var(--background) / 0.25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-veil::after {
+    content: "";
+    position: absolute;
+    inset: 100% 0 auto;
+    height: 36px;
+    background-image: linear-gradient(180deg, hsl(var(--background) / 0.6), transparent);
+  }
+
+  .nav-veil-on {
+    visibility: visible;
+  }
+
+  .glass-panel {
+    background-color: hsl(0 0% 100% / 0.7);
+  }
+
+  .dark .glass-panel {
+    background-color: hsl(0 0% 4% / 0.8);
+  }
+
+  .glass-nav-scrolled {
+    background-color: hsl(0 0% 100% / 0.58);
+  }
+
+  .dark .glass-nav-scrolled {
+    background-color: hsl(0 0% 0% / 0.62);
+  }
+
+  .glass-pill-active {
+    background-color: hsl(0 0% 100% / 0.75);
+  }
+
+  .dark .glass-pill-active {
+    background-color: hsl(0 0% 100% / 0.1);
+  }
+
+  .glass-card,
+  .glass-nav,
+  .glass-panel {
+    position: relative;
+  }
+
+  /* Each card gets a random shine angle and reflection spot (useGlassVariation), painted
+     into its own background: no extra layers, so it is free to render and scroll. */
+  .glass-card {
+    background-image:
+      radial-gradient(var(--sheen-size, 60%) 70% at var(--sheen-x, 20%) var(--sheen-y, 0%), hsl(0 0% 100% / 0.45), transparent),
+      linear-gradient(var(--glass-angle, 160deg), hsl(0 0% 100% / 0.35), hsl(0 0% 100% / 0.2));
+  }
+
+  .dark .glass-card {
+    background-image:
+      radial-gradient(var(--sheen-size, 60%) 70% at var(--sheen-x, 20%) var(--sheen-y, 0%), hsl(0 0% 100% / 0.06), transparent),
+      linear-gradient(var(--glass-angle, 160deg), hsl(0 0% 100% / 0.04), hsl(0 0% 100% / 0.015));
+  }
+
+  .glass-nav::before,
+  .glass-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(0 0% 100% / 1), hsl(0 0% 100% / 0) 30%, hsl(0 0% 100% / 0) 70%, hsl(0 0% 100% / 0.7));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .dark .glass-nav::before,
+  .dark .glass-panel::before {
+    background: linear-gradient(135deg, hsl(0 0% 100% / 0.35), hsl(0 0% 100% / 0) 30%, hsl(0 0% 100% / 0) 70%, hsl(0 0% 100% / 0.18));
+  }
+
+  .glass-card-green {
+    border-color: hsl(142 70% 40% / 0.3);
+  }
+
+  .dark .glass-card-green {
+    border-color: hsl(142 70% 50% / 0.22);
+  }
+
+  .glass-button {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  }
+
+  .glass-button:hover {
+    background-color: hsl(0 0% 100% / 0.7);
+  }
+
+  .dark .glass-button:hover {
+    background-color: hsl(0 0% 100% / 0.1);
+    border-color: hsl(0 0% 100% / 0.18);
+  }
+
+  .glass-button:active {
+    transform: scale(0.96);
+  }
+
+  .glass-input {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .glass-input:focus {
+    border-color: hsl(262 80% 60% / 0.5);
+    box-shadow:
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.95),
+      0 0 0 4px hsl(262 80% 60% / 0.14);
+  }
+
+  .dark .glass-input:focus {
+    border-color: hsl(262 80% 65% / 0.5);
+    box-shadow:
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.14),
+      0 0 0 4px hsl(262 80% 60% / 0.16);
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .nav-veil,
+    .glass-panel {
+      background-color: hsl(var(--card) / 0.92);
+    }
+  }
+
+  .press {
+    transition-property: color, background-color, transform;
+    transition-duration: 0.15s;
+  }
+
+  .press:active {
+    transform: scale(0.96);
+  }
+
+  .card-hover {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    @apply shadow-lg;
+  }
+
+  .dark .card-hover:hover {
+    border-color: hsl(265 90% 62% / 0.35);
+    box-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.08), 0 0 0 1px hsl(265 90% 62% / 0.08), 0 20px 50px -20px hsl(265 90% 62% / 0.45);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-hover:hover {
+      transform: none;
+    }
   }
 }

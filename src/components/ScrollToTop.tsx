@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 
 export const ScrollToTopButton = () => {
@@ -14,15 +14,15 @@ export const ScrollToTopButton = () => {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.button
+        <m.button
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg border border-border bg-primary text-primary-foreground shadow-lg transition-colors hover:bg-primary/90"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex h-9 w-9 sm:h-10 sm:w-10 glass-nav glass-nav-scrolled items-center justify-center rounded-full text-foreground"
         >
           <ArrowUp size={16} />
-        </motion.button>
+        </m.button>
       )}
     </AnimatePresence>
   );

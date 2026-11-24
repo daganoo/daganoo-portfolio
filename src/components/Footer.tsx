@@ -19,7 +19,7 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-background">
+    <footer className="border-t border-border">
       <div className="container-page mx-auto flex flex-col items-center gap-6 py-8 sm:flex-row sm:justify-between">
         <p className="text-sm text-muted-foreground">
           &copy; {currentYear} Marouane Dagana. All rights reserved.
