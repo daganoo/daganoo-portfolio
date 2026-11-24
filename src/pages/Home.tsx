@@ -4,8 +4,9 @@ import { ArrowDown, ArrowRight, Code2, Cloud, Sparkles, Zap, FileText } from "lu
 import { projects } from "../data/projects";
 import { skillGroups } from "../data/skills";
 import { Testimonials } from "../sections/Testimonials";
+import { TypewriterHeadline } from "../components/TypewriterHeadline";
 import { TechIcon } from "../components/TechIcon";
-import { item } from "../utils/animations";
+import { heroPhrases } from "../data/hero";
 import { thumbnail } from "../utils/images";
 
 const featuredProjects = projects.filter((p) => p.featured).reverse();
@@ -28,9 +29,6 @@ const categoryAccent: Record<string, string> = {
 };
 
 export const Home = () => {
-  const prefersReduced =
-    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   return (
     <>
       <section className="horizon-hero relative flex min-h-[90vh] items-center">
@@ -42,7 +40,7 @@ export const Home = () => {
             className="mx-auto flex max-w-4xl flex-col items-center gap-8 text-center"
           >
             <div className="shrink-0">
-              <div className="relative h-32 w-32 overflow-hidden rounded-full border-4 border-border bg-muted md:h-48 md:w-64 lg:h-64 lg:w-64">
+              <div className="relative h-32 w-32 overflow-hidden rounded-full border-4 border-border bg-muted md:h-48 md:w-48 lg:h-64 lg:w-64">
                 <img
                   src="/images/avatar.webp"
                   alt="Marouane Dagana"
@@ -59,26 +57,10 @@ export const Home = () => {
             </div>
 
             <div className="flex flex-col items-center">
-          <m.h1
-            className="text-balance text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
-          >
-                <span className="text-foreground">
-                  Hi, I&apos;m{" "}
-                </span>
-                <m.span
-                  variants={prefersReduced ? undefined : item}
-                  className="inline-block whitespace-nowrap text-foreground"
-                >
-                  Marouane
-                </m.span>
-                <span> </span>
-                <m.span
-                  variants={prefersReduced ? undefined : item}
-                  className="inline-block whitespace-nowrap text-foreground"
-                >
-                  Dagana
-                </m.span>
-              </m.h1>
+              <TypewriterHeadline
+                phrases={heroPhrases}
+                className="text-[length:min(7vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-foreground"
+              />
 
               <p
                 className="mt-6 max-w-3xl text-base text-muted-foreground sm:text-lg md:text-xl lg:text-2xl"
@@ -108,7 +90,7 @@ export const Home = () => {
 
         <m.a
           href="#about"
-          className="absolute bottom-10 left-1/2 z-[1] -translate-x-1/2 animate-bounce text-muted-foreground/40 transition-colors hover:text-muted-foreground"
+          className="absolute inset-x-0 bottom-10 z-[1] mx-auto w-6 animate-[bounce_1s_1s_4] text-muted-foreground/40 motion-reduce:animate-none transition-colors hover:text-muted-foreground"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.4 }}
