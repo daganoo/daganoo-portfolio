@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
+const START_MS = 350;
 const HOLD_MS = 2600;
 const BLINK_MS = 530;
 const DELETE_MS = 30;
@@ -20,12 +21,15 @@ export const TypewriterHeadline = ({ phrases, className = "" }: TypewriterHeadli
 
   // Writes to the DOM directly so typing never re-renders React, and blinks the caret on a
   // timer because an infinite CSS animation would keep the browser drawing at 60 fps.
-  useEffect(() => {
+  useLayoutEffect(() => {
     const heading = headingRef.current;
     const text = textRef.current;
     const caret = caretRef.current;
     if (!heading || !text || !caret) return;
-    if (phrases.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      text.textContent = phrases[0];
+      return;
+    }
 
     let timer: number;
     let visible = true;
@@ -68,15 +72,15 @@ export const TypewriterHeadline = ({ phrases, className = "" }: TypewriterHeadli
       const phrase = phrases[index];
       text.textContent = phrase.slice(0, length);
       if (length < phrase.length) schedule(() => type(length + 1), typeDelay());
-      else hold();
+      else if (phrases.length > 1) hold();
     };
 
-    hold();
+    schedule(() => type(1), START_MS);
 
     return () => {
       window.clearTimeout(timer);
       observer.disconnect();
-      text.textContent = phrases[0];
+      text.textContent = "";
     };
   }, [phrases]);
 
@@ -84,9 +88,7 @@ export const TypewriterHeadline = ({ phrases, className = "" }: TypewriterHeadli
     <h1 ref={headingRef} className={className}>
       <span className="sr-only">{phrases.join(". ")}</span>
       <span aria-hidden className="flex h-[1.1em] items-center justify-center">
-        <span ref={textRef} className="whitespace-pre">
-          {phrases[0]}
-        </span>
+        <span ref={textRef} className="whitespace-pre" />
         <span
           ref={caretRef}
           className="-mr-[0.13em] ml-[0.07em] h-[0.9em] w-[0.06em] rounded-full bg-violet-500 motion-reduce:hidden dark:bg-violet-300"
