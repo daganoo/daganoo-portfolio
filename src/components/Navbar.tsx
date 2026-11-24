@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { m, AnimatePresence } from "framer-motion";
 import { Menu, X, Home, User, FolderKanban, Mail, Sun, Moon, FileText } from "lucide-react";
@@ -18,11 +18,42 @@ const drawerPanel = {
   exit: { x: "100%", transition: { duration: 0.2 } },
 };
 
+interface PillPosition {
+  x: number;
+  width: number;
+  slide: boolean;
+}
+
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { theme, setTheme, cycle } = useTheme();
   const location = useLocation();
+  const linksRef = useRef<HTMLDivElement>(null);
+  const [pill, setPill] = useState<PillPosition | null>(null);
+
+  useLayoutEffect(() => {
+    const links = linksRef.current;
+    if (!links) return;
+
+    const place = (slide: boolean) => {
+      const active = links.querySelector<HTMLElement>('[aria-current="page"]');
+      setPill((prev) =>
+        active && active.offsetWidth > 0
+          ? { x: active.offsetLeft, width: active.offsetWidth, slide: slide && prev !== null }
+          : null
+      );
+    };
+
+    place(true);
+    let initial = true;
+    const observer = new ResizeObserver(() => {
+      if (!initial) place(false);
+      initial = false;
+    });
+    observer.observe(links);
+    return () => observer.disconnect();
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -59,15 +90,24 @@ export const Navbar = () => {
           Marouane Dagana | Portfolio
         </Link>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div ref={linksRef} className="relative hidden items-center gap-1 md:flex">
+          {pill && (
+            <span
+              aria-hidden
+              className={`glass-pill-active nav-pill ${pill.slide ? "nav-pill-slide" : ""}`}
+              style={{ width: pill.width, transform: `translateX(${pill.x}px)` }}
+            />
+          )}
           {navLinks.map((link) => {
             const isActive = location.pathname === link.href;
             return (
               <Link
                 key={link.href}
                 to={link.href}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-[colors,transform] active:scale-95 ${
-                  isActive ? "glass-pill-active text-foreground" : "text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                aria-current={isActive ? "page" : undefined}
+                onClick={(e) => e.detail > 0 && e.currentTarget.blur()}
+                className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300 ${
+                  isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"
                 }`}
               >
                 {link.label}

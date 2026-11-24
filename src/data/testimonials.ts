@@ -12,10 +12,10 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: "2",
-    name: "Sarah Mitchell",
-    role: "CTO, DataPulse",
+    name: "Client",
+    role: "Upwork Client",
     content:
-      "Outstanding work on our AI content generator. Marouane integrated Amazon Bedrock seamlessly and the n8n automation workflows he set up saved us countless hours. Will definitely hire again.",
+      "He demonstrated strong technical knowledge, paid close attention to details, and was committed to delivering quality results. Communication was clear, and he was responsive to requirements.",
     rating: 5,
     platform: "upwork",
   },
