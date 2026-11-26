@@ -21,11 +21,6 @@ export type ProjectCategory =
   | "Full-Stack React+Node"
   | "React Frontend";
 
-export interface SkillGroup {
-  category: string;
-  details: string;
-}
-
 export interface Experience {
   id: string;
   title: string;

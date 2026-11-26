@@ -1,32 +1,16 @@
 import { Link } from "react-router-dom";
 import { m } from "framer-motion";
-import { ArrowDown, ArrowRight, Code2, Cloud, Sparkles, Zap, FileText } from "lucide-react";
+import { ArrowDown, ArrowRight, FileText } from "lucide-react";
 import { projects } from "../data/projects";
-import { skillGroups } from "../data/skills";
 import { Testimonials } from "../sections/Testimonials";
+import { Expertise } from "../sections/Expertise";
+import { TechStack } from "../sections/TechStack";
 import { TypewriterHeadline } from "../components/TypewriterHeadline";
 import { TechIcon } from "../components/TechIcon";
 import { heroPhrases } from "../data/hero";
 import { thumbnail } from "../utils/images";
 
 const featuredProjects = projects.filter((p) => p.featured).reverse();
-
-const highlights = [
-  { icon: Cloud, label: "AWS Cloud", description: "Serverless architectures, EC2, S3, Lambda, DynamoDB", color: "bg-blue-500/10 text-blue-500" },
-  { icon: Sparkles, label: "AI & Machine Learning", description: "Amazon Bedrock, generative AI pipelines, prompt engineering", color: "bg-emerald-500/10 text-emerald-500" },
-  { icon: Code2, label: "Full-Stack Development", description: "React, TypeScript, Node.js, Express, REST APIs", color: "bg-violet-500/10 text-violet-500" },
-  { icon: Zap, label: "Automation", description: "n8n workflows, CI/CD, infrastructure as code", color: "bg-cyan-500/10 text-cyan-500" },
-];
-
-const categoryAccent: Record<string, string> = {
-  Frontend: "text-blue-500",
-  "Backend & Databases": "text-green-500",
-  "Cloud & DevOps": "text-cyan-500",
-  "AI & Automation": "text-orange-500",
-  Tools: "text-yellow-500",
-  "Mobile & Desktop Development": "text-purple-500",
-  Languages: "text-rose-500",
-};
 
 export const Home = () => {
   return (
@@ -103,61 +87,12 @@ export const Home = () => {
       <section id="about" className="relative py-24">
 
         <div className="container-page mx-auto">
-          <m.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.4 }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
-              About Me
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              I&apos;m a Full-Stack Developer and AWS/AI Engineer with 4+ years of experience. I build AI-powered chatbots, RAG systems, automation workflows, and serverless backends on AWS Bedrock and Lambda.
-            </p>
-          </m.div>
+          <Expertise />
 
-          <div className="mx-auto mt-12 grid max-w-4xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {highlights.map((hl, i) => (
-              <m.div
-                key={hl.label}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ delay: i * 0.05, duration: 0.35 }}
-                className="glass-card rounded-3xl p-6 text-center card-hover"
-              >
-                <div className={`mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl ${hl.color}`}>
-                  <hl.icon size={24} />
-                </div>
-                <h3 className="mb-2 font-semibold text-card-foreground">{hl.label}</h3>
-                <p className="text-sm text-muted-foreground">{hl.description}</p>
-              </m.div>
-            ))}
-          </div>
-
-          <div className="mx-auto mt-16 max-w-4xl space-y-6">
-            {skillGroups.map((group, catIndex) => (
-              <m.div
-                key={group.category}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ delay: catIndex * 0.04, duration: 0.4 }}
-              >
-                <h3 className={`mb-3 text-sm font-semibold uppercase tracking-wider ${categoryAccent[group.category]}`}>
-                  {group.category}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {group.details}
-                </p>
-              </m.div>
-            ))}
-          </div>
+          <TechStack />
 
           <m.div
-            className="mt-12 flex flex-wrap justify-center gap-4"
+            className="mt-14 flex flex-wrap justify-center gap-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.15 }}
