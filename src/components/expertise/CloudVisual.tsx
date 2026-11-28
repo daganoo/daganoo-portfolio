@@ -5,7 +5,7 @@ import { cloudDemo } from "../../data/expertise";
 
 const awsTile = (hex: string) => ({ background: `linear-gradient(145deg, ${hex}, ${hex}bb)`, color: "white" });
 
-const ICON = "h-5 w-5 sm:h-7 sm:w-7";
+const ICON = "h-5 w-5 sm:h-6 sm:w-6 md:h-5 md:w-5 lg:h-7 lg:w-7";
 const labels = cloudDemo.nodes;
 
 const nodes: FlowNode[] = [

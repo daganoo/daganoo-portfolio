@@ -75,7 +75,7 @@ export const FlowDiagram = ({ width, height, nodes, trunk, branches, cycle, anim
           style={{ left: `${(node.x / width) * 100}%`, top: `${(node.y / height) * 100}%` }}
         >
           <div
-            className="relative flex h-10 w-10 items-center justify-center rounded-xl sm:h-14 sm:w-14 sm:rounded-2xl"
+            className="relative flex h-10 w-10 items-center justify-center rounded-xl sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-14 lg:w-14 lg:rounded-2xl"
             style={node.tile}
           >
             <span
@@ -84,7 +84,7 @@ export const FlowDiagram = ({ width, height, nodes, trunk, branches, cycle, anim
             />
             {node.icon}
           </div>
-          <p className="absolute left-1/2 top-full mt-1.5 -translate-x-1/2 whitespace-nowrap text-[9px] font-medium text-muted-foreground sm:mt-2 sm:text-[11px]">
+          <p className="absolute left-1/2 top-full mt-1.5 -translate-x-1/2 whitespace-nowrap text-[9px] font-medium text-muted-foreground sm:text-[10px] md:text-[9px] lg:mt-2 lg:text-[11px]">
             {node.label}
           </p>
         </div>

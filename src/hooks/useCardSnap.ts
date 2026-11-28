@@ -1,6 +1,6 @@
 import { useEffect, type RefObject } from "react";
 
-const STACK_QUERY = "(min-width: 768px)";
+export const STACK_QUERY = "(min-height: 520px)";
 const EDGE = 4;
 const SETTLE_MS = 900;
 const QUIET_MS = 100;
@@ -9,9 +9,17 @@ const SWIPE_PX = 24;
 const NEXT_KEYS = new Set(["ArrowDown", "PageDown", " "]);
 const PREV_KEYS = new Set(["ArrowUp", "PageUp"]);
 
-// Steps through a stack of full-screen sticky cards one card per gesture. Each card's wrapper is
-// one viewport tall, so card i is in place when the page is scrolled to stackTop + i * vh.
-// Outside the stack, scrolling stays native.
+// Scroll positions at which each card sits in place: the top of the stack, then each sentinel
+// in front of the next card. Measured from the page rather than from the window height, because
+// mobile browsers resize the window as their address bar shows and hides.
+export const cardStops = (stack: HTMLElement) => {
+  const y = window.scrollY;
+  const tops = [stack, ...Array.from(stack.querySelectorAll<HTMLElement>(".xp-sentinel"))];
+  return tops.map((el) => Math.round(el.getBoundingClientRect().top + y));
+};
+
+// Steps through a stack of full-screen sticky cards one card per gesture. Outside the stack,
+// scrolling stays native.
 export const useCardSnap = (ref: RefObject<HTMLElement | null>, count: number) => {
   useEffect(() => {
     const stack = ref.current;
@@ -27,10 +35,7 @@ export const useCardSnap = (ref: RefObject<HTMLElement | null>, count: number) =
     let lastWheelAt = 0;
     let touchY: number | null = null;
 
-    const points = () => {
-      const top = stack.getBoundingClientRect().top + window.scrollY;
-      return Array.from({ length: count }, (_, i) => Math.round(top + i * window.innerHeight));
-    };
+    const points = () => cardStops(stack);
 
     // Which card a gesture in `dir` should land on, or null to let the page scroll natively.
     const target = (dir: 1 | -1) => {

@@ -6,10 +6,9 @@ import { CloudVisual } from "../components/expertise/CloudVisual";
 import { AiVisual } from "../components/expertise/AiVisual";
 import { FullstackVisual } from "../components/expertise/FullstackVisual";
 import { AutomationVisual } from "../components/expertise/AutomationVisual";
-import { useCardSnap } from "../hooks/useCardSnap";
+import { FitBox } from "../components/expertise/FitBox";
+import { cardStops, STACK_QUERY, useCardSnap } from "../hooks/useCardSnap";
 import { expertise, expertiseIntro, type Expertise as ExpertiseItem } from "../data/expertise";
-
-const PEEK_PX = 22;
 
 const reveal = {
   hidden: { opacity: 0, y: 18 },
@@ -47,31 +46,31 @@ interface CardProps {
 // The deck effect (cards dimming as the next one slides over) is a CSS scroll-driven
 // animation keyed to the next card's sentinel, so it runs on the compositor with no JS per frame.
 const ExpertiseCard = ({ item, index, covered, live, animate }: CardProps) => (
-  <div className="md:sticky md:top-0 md:flex md:h-screen md:items-center md:pt-14">
+  <div className="stack:sticky stack:top-0 stack:flex stack:h-[100svh] stack:items-center stack:pt-14">
     <article
       data-xp-card={index}
       data-live={live}
-      className={`xp-scene glass-card relative grid w-full overflow-hidden rounded-[2rem] md:h-[min(640px,calc(100vh-8rem))] md:grid-cols-[1fr_1.2fr]`}
-      style={{ "--xp-accent": item.accent, "--xp-next": timelineName(index + 1), "--xp-top": `${index * PEEK_PX}px` } as CSSProperties}
+      className="xp-scene glass-card relative grid w-full grid-cols-[minmax(0,1fr)] overflow-hidden rounded-[1.75rem] sm:rounded-[2rem] stack:h-[calc(100svh-9rem)] stack:grid-rows-[auto_minmax(0,1fr)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:stack:h-[min(640px,calc(100svh-13rem))] md:stack:grid-rows-1"
+      style={{ "--xp-accent": item.accent, "--xp-next": timelineName(index + 1), "--xp-i": index } as CSSProperties}
     >
       <m.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        className="relative flex flex-col justify-center p-7 sm:p-10 lg:p-14"
+        className="relative flex flex-col justify-center p-5 pb-3 sm:p-10 md:p-8 lg:p-14"
       >
         <m.p variants={reveal} custom={0} className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-[hsl(var(--xp-accent))]">
           <span className="font-mono">0{index + 1}</span>
           <span className="h-px w-8 bg-[hsl(var(--xp-accent)/0.5)]" />
           {item.label}
         </m.p>
-        <m.h3 variants={reveal} custom={1} className="mt-4 text-balance text-3xl font-bold tracking-tight text-card-foreground lg:text-[2.6rem] lg:leading-[1.1]">
+        <m.h3 variants={reveal} custom={1} className="mt-3 text-balance text-2xl font-bold sm:mt-4 sm:text-3xl md:text-[1.7rem] tracking-tight text-card-foreground lg:text-[2.6rem] lg:leading-[1.1]">
           {item.title}
         </m.h3>
-        <m.p variants={reveal} custom={2} className="mt-4 text-base leading-relaxed text-muted-foreground">
+        <m.p variants={reveal} custom={2} className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground sm:mt-4 sm:text-base lg:line-clamp-none">
           {item.description}
         </m.p>
-        <m.ul variants={reveal} custom={3} className="mt-6 space-y-2.5">
+        <m.ul variants={reveal} custom={3} className="mt-6 hidden space-y-2.5 lg:block">
           {item.points.map((point) => (
             <li key={point} className="flex items-start gap-2.5 text-sm text-foreground/85">
               <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[hsl(var(--xp-accent)/0.15)] text-[hsl(var(--xp-accent))]">
@@ -81,13 +80,13 @@ const ExpertiseCard = ({ item, index, covered, live, animate }: CardProps) => (
             </li>
           ))}
         </m.ul>
-        <ul className="mt-7 flex flex-wrap gap-2">
+        <ul className="mt-3 flex gap-2 overflow-hidden [mask-image:linear-gradient(90deg,#000_85%,transparent)] sm:mt-7 sm:flex-wrap sm:[mask-image:none]">
           {item.stack.map((tech, i) => (
             <m.li
               key={tech}
               variants={chip}
               custom={i}
-              className="inline-flex items-center gap-1.5 rounded-full border border-foreground/10 bg-background/40 px-3 py-1.5 text-xs font-medium text-foreground/85 transition-colors hover:border-[hsl(var(--xp-accent)/0.5)]"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-foreground/10 bg-background/40 px-2.5 py-1 text-[11px] font-medium sm:px-3 sm:py-1.5 sm:text-xs text-foreground/85 transition-colors hover:border-[hsl(var(--xp-accent)/0.5)]"
             >
               <TechIcon name={tech} size={14} />
               {tech}
@@ -96,8 +95,10 @@ const ExpertiseCard = ({ item, index, covered, live, animate }: CardProps) => (
         </ul>
       </m.div>
 
-      <div className="relative m-3 min-h-[320px] overflow-hidden rounded-[1.5rem] border border-foreground/[0.08] bg-foreground/[0.025] sm:min-h-[380px] md:m-4 md:ml-0 md:min-h-0">
-        <Visual item={item} live={live} animate={animate} />
+      <div className="relative m-3 mt-0 min-h-[320px] overflow-hidden rounded-[1.25rem] border border-foreground/[0.08] bg-foreground/[0.025] sm:min-h-[380px] sm:rounded-[1.5rem] stack:min-h-0 md:m-4 md:ml-0 md:mt-4">
+        <FitBox>
+          <Visual item={item} live={live} animate={animate} />
+        </FitBox>
       </div>
 
       {covered && <div aria-hidden className="xp-shade pointer-events-none absolute inset-x-0 top-0 h-24 bg-background opacity-0" />}
@@ -139,9 +140,13 @@ const useStackPosition = (ref: React.RefObject<HTMLDivElement | null>, count: nu
       const el = ref.current;
       if (!el) return;
       const vh = window.innerHeight;
-      const offset = -el.getBoundingClientRect().top;
-      const index = Math.min(count - 1, Math.max(0, Math.round(offset / vh)));
-      const visible = window.matchMedia("(min-width: 768px)").matches && offset > -vh * 0.35 && offset < (count - 1) * vh + vh * 0.35;
+      const y = window.scrollY;
+      const stops = cardStops(el);
+      let index = 0;
+      stops.forEach((stop, i) => {
+        if (Math.abs(stop - y) < Math.abs(stops[index] - y)) index = i;
+      });
+      const visible = window.matchMedia(STACK_QUERY).matches && y > stops[0] - vh * 0.35 && y < stops[count - 1] + vh * 0.35;
       setPos((prev) => (prev.index === index && prev.visible === visible ? prev : { index, visible }));
     };
     update();
@@ -163,12 +168,12 @@ const ProgressRail = ({ index, visible, onJump }: { index: number; visible: bool
     <nav
       aria-label={expertiseIntro.railLabel}
       aria-hidden={!visible}
-      className={`fixed right-2 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-3 transition-opacity duration-300 md:flex lg:right-4 ${
+      className={`fixed right-0.5 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-2 transition-opacity duration-300 stack:flex sm:right-2 sm:gap-3 lg:right-4 ${
         visible ? "opacity-100" : "pointer-events-none opacity-0"
       }`}
       style={{ "--xp-accent": current.accent } as CSSProperties}
     >
-      <span key={`n${index}`} className="xp-in font-mono text-sm font-semibold text-[hsl(var(--xp-accent))]">
+      <span key={`n${index}`} className="xp-in font-mono text-[10px] font-semibold sm:text-sm text-[hsl(var(--xp-accent))]">
         {pad(index + 1)}
       </span>
       <ul className="flex flex-col gap-1.5">
@@ -180,7 +185,7 @@ const ProgressRail = ({ index, visible, onJump }: { index: number; visible: bool
               onClick={() => onJump(i)}
               aria-label={item.label}
               aria-current={i === index ? "step" : undefined}
-              className="group relative flex h-9 w-3 items-center justify-center"
+              className="group relative flex h-7 w-3 items-center justify-center sm:h-9"
             >
               <span className="relative h-full w-[3px] overflow-hidden rounded-full bg-foreground/15">
                 <span
@@ -199,7 +204,7 @@ const ProgressRail = ({ index, visible, onJump }: { index: number; visible: bool
           </li>
         ))}
       </ul>
-      <span className="font-mono text-[11px] text-muted-foreground">{pad(expertise.length)}</span>
+      <span className="font-mono text-[9px] text-muted-foreground sm:text-[11px]">{pad(expertise.length)}</span>
       {visible && (
         <span
           key={`l${index}`}
@@ -224,7 +229,7 @@ export const Expertise = () => {
   const jump = (i: number) => {
     const el = ref.current;
     if (!el) return;
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + i * window.innerHeight, behavior: "smooth" });
+    window.scrollTo({ top: cardStops(el)[i], behavior: "smooth" });
   };
   const names = expertise.slice(1).map((_, i) => timelineName(i + 1)).join(", ");
 
@@ -241,7 +246,7 @@ export const Expertise = () => {
         <h3 className="mt-3 text-balance text-3xl font-bold tracking-tight md:text-4xl">{expertiseIntro.title}</h3>
         <p className="mt-4 text-base text-muted-foreground md:text-lg">{expertiseIntro.subtitle}</p>
       </m.div>
-      <div ref={ref} className="xp-stack mt-10 space-y-6 md:mt-0 md:space-y-0" style={{ timelineScope: names } as CSSProperties}>
+      <div ref={ref} className="xp-stack mt-10 space-y-6 stack:mt-0 stack:space-y-0" style={{ timelineScope: names } as CSSProperties}>
         {expertise.map((item, i) => (
           <Fragment key={item.id}>
             {i > 0 && <div aria-hidden className="xp-sentinel h-0" style={{ viewTimelineName: timelineName(i) } as CSSProperties} />}

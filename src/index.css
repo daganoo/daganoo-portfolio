@@ -572,16 +572,22 @@
     100% { transform: translateX(100%); opacity: 0; }
   }
 
-  @media (min-width: 768px) {
+  @media (min-height: 520px) {
     .xp-scene {
-      top: var(--xp-top);
+      top: calc(var(--xp-i) * 12px);
+    }
+  }
+
+  @media (min-height: 520px) and (min-width: 768px) {
+    .xp-scene {
+      top: calc(var(--xp-i) * 22px);
     }
   }
 
   /* As the next card slides up, the one underneath dims. Driven by the scroll
      position of a sentinel in front of the next card, entirely on the compositor. */
   @supports (animation-timeline: view()) {
-    @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    @media (min-height: 520px) and (prefers-reduced-motion: no-preference) {
       .xp-shade {
         animation-timing-function: linear;
         animation-fill-mode: both;

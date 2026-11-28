@@ -8,7 +8,7 @@ import { workflowDemo } from "../../data/expertise";
 
 const LOOP_MS = 7000;
 const BASE_EXECUTIONS = 1284;
-const ICON = "h-5 w-5 sm:h-7 sm:w-7";
+const ICON = "h-5 w-5 sm:h-6 sm:w-6 md:h-5 md:w-5 lg:h-7 lg:w-7";
 const appTile: CSSProperties = { background: "linear-gradient(hsl(var(--foreground) / 0.07), hsl(var(--foreground) / 0.07)), hsl(var(--background))", border: "1px solid hsl(var(--foreground) / 0.1)" };
 const delay = (s: number) => ({ animationDelay: `${s}s` }) as CSSProperties;
 const labels = workflowDemo.nodes;
@@ -44,11 +44,11 @@ export const AutomationVisual = ({ live, animate }: { live: boolean; animate: bo
         />
       </div>
 
-      <div key={round} className="flex w-full max-w-[540px] flex-wrap items-center gap-x-1 gap-y-2 rounded-2xl border border-foreground/10 bg-background/60 p-3 sm:flex-nowrap sm:gap-2">
+      <div key={round} className="flex w-full max-w-[540px] flex-wrap items-center gap-x-1 gap-y-2 rounded-2xl border border-foreground/10 bg-background/60 p-3 sm:flex-nowrap sm:gap-2 md:flex-wrap md:gap-x-1 lg:flex-nowrap lg:gap-2">
         {FaGithub({ className: "h-5 w-5 shrink-0 text-foreground" })}
         {stages.map((stage, i) => (
           <div key={stage} className="contents">
-            <div className={`relative h-px min-w-[6px] flex-1 overflow-hidden bg-foreground/15 ${i === 0 ? "hidden sm:block" : ""}`}>
+            <div className={`relative h-px min-w-[6px] flex-1 overflow-hidden bg-foreground/15 ${i === 0 ? "hidden sm:block md:hidden lg:block" : ""}`}>
               <span className="xp-anim xp-grow-x absolute inset-0 bg-[hsl(var(--xp-accent))]" style={delay(0.2 + i * 0.7)} />
             </div>
             <span className="inline-flex shrink-0 items-center gap-1 text-[11px] font-medium text-foreground/80">
@@ -60,7 +60,7 @@ export const AutomationVisual = ({ live, animate }: { live: boolean; animate: bo
           </div>
         ))}
         <span
-          className="xp-anim xp-in w-full shrink-0 rounded-full bg-emerald-500/15 px-2 py-0.5 text-center text-[11px] font-medium text-emerald-600 dark:text-emerald-400 sm:ml-1 sm:w-auto"
+          className="xp-anim xp-in w-full shrink-0 rounded-full bg-emerald-500/15 px-2 py-0.5 text-center text-[11px] font-medium text-emerald-600 dark:text-emerald-400 sm:ml-1 sm:w-auto md:ml-0 md:w-full lg:ml-1 lg:w-auto"
           style={delay(0.6 + stages.length * 0.7)}
         >
           {workflowDemo.deployed}
